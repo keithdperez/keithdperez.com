@@ -8,7 +8,7 @@ export const sharedPageComponents: SharedLayout = {
   afterBody: [],
   footer: Component.Footer({
     links: {
-      "The Create Design": "https://thencreate.design",
+      "Then Create": "https://thencreate.design",
       "Oro En Marrow": "https://open.spotify.com/artist/3K1o0ml4fP5YK0123UTTRs",
     },
   }),
