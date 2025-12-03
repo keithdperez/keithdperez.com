@@ -6,6 +6,26 @@ export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [Component.PageTitle(), Component.Spacer(), Component.Search(), Component.Darkmode()],
   afterBody: [
+    Component.Graph({
+      localGraph: {
+        depth: 2,
+        scale: 1.1,
+        repelForce: 0.5,
+        centerForce: 0.3,
+        linkDistance: 30,
+        fontSize: 0.5,
+        focusOnHover: true,
+      },
+      globalGraph: {
+        depth: -1,
+        scale: 0.9,
+        repelForce: 0.5,
+        centerForce: 0.3,
+        linkDistance: 30,
+        fontSize: 0.5,
+        focusOnHover: true,
+      },
+    }),
     Component.Backlinks(),
   ],
   footer: Component.Footer({
@@ -27,25 +47,11 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ContentMeta(),
     Component.TagList(),
   ],
-  left: [Component.DesktopOnly(Component.TableOfContents())],
-  right: [
-    Component.DesktopOnly(
-      Component.Graph({
-        localGraph: {
-          depth: 2,
-          scale: 1.2,
-          repelForce: 0.5,
-          centerForce: 0.3,
-          linkDistance: 30,
-          fontSize: 0.5,
-          focusOnHover: true,
-        },
-      })
-    ),
-  ],
+  left: [],
+  right: [],
 }
 
-// components for pages that display lists of pages  (e.g. tags or folders)
+// components for pages that display lists of pages (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
   beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
   left: [],
