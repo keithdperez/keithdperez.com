@@ -1,8 +1,32 @@
 @use "./base.scss";
 
-// HumanLayer-inspired clean, minimal styling
+// ===================================
+// CREATIVE ENHANCEMENTS
+// Clean, modern dark theme with subtle glow effects
+// ===================================
 
-// Header styling - clean navigation bar
+// --- CSS Variables for effects ---
+:root {
+  --glow-color: var(--secondary);
+  --glow-strength: 0 0 10px;
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.25s ease;
+}
+
+// --- Global smooth scrolling ---
+html {
+  scroll-behavior: smooth;
+}
+
+// --- Selection styling with accent ---
+::selection {
+  background: var(--secondary);
+  color: var(--light);
+}
+
+// ===================================
+// HEADER - Clean navigation
+// ===================================
 header {
   display: flex;
   flex-direction: row;
@@ -11,6 +35,11 @@ header {
   gap: 1rem;
   border-bottom: 1px solid var(--lightgray);
   margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  background: rgba(24, 24, 24, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   @media all and (max-width: 800px) {
     padding: 1rem;
@@ -20,14 +49,15 @@ header {
     margin: 0;
     font-size: 1.2rem;
     font-weight: 600;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--secondary);
+    }
   }
 
   .spacer {
     flex: 1;
-  }
-
-  .search {
-    margin-right: 0.5rem;
   }
 
   .darkmode {
@@ -35,14 +65,15 @@ header {
   }
 }
 
-// Remove left sidebar styling
+// ===================================
+// LAYOUT - Centered content
+// ===================================
 .sidebar.left {
   display: none !important;
 }
 
-// Centered content layout
 .page {
-  max-width: 750px;
+  max-width: 850px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -56,69 +87,332 @@ header {
   }
 }
 
-// Clean article styling
-article {
-  h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    line-height: 1.3;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-top: 2rem;
-  }
-
-  p {
-    line-height: 1.8;
-    margin-bottom: 1.25rem;
-  }
-}
-
-// Clean link styling (like HumanLayer)
+// ===================================
+// LINKS - Glow effect on hover
+// ===================================
 a {
   color: var(--secondary);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: all var(--transition-fast);
+  position: relative;
 
   &:hover {
     color: var(--tertiary);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    text-shadow: var(--glow-strength) var(--secondary);
   }
 
   &.internal {
     background-color: transparent;
     padding: 0;
     border-radius: 0;
+    border-bottom: 1px dotted var(--secondary);
 
     &:hover {
       background-color: transparent;
+      border-bottom-style: solid;
+      text-shadow: var(--glow-strength) var(--secondary);
     }
   }
 }
 
-// Blockquote styling (testimonial-like)
+// ===================================
+// TYPOGRAPHY - Article styling
+// ===================================
+article {
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--lightgray);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    color: var(--darkgray);
+  }
+
+  p {
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+
+  // Lead paragraph styling
+  > p:first-of-type {
+    font-size: 1.1rem;
+    color: var(--darkgray);
+    line-height: 1.9;
+  }
+}
+
+// ===================================
+// BLOCKQUOTES - Prominent styling
+// ===================================
 blockquote {
   font-size: 1.1rem;
   font-style: italic;
   border-left: 3px solid var(--secondary);
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 1.5rem;
   margin: 2rem 0;
-  background: var(--lightgray);
-  border-radius: 0 5px 5px 0;
+  background: linear-gradient(90deg, var(--lightgray) 0%, transparent 100%);
+  border-radius: 0 8px 8px 0;
+  position: relative;
+
+  &::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-size: 4rem;
+    color: var(--secondary);
+    opacity: 0.2;
+    font-family: Georgia, serif;
+  }
+
+  p {
+    margin: 0;
+  }
 }
 
-// Footer styling - clean with separators
+// ===================================
+// GRAPH - Interactive visualization
+// ===================================
+.graph {
+  border: 1px solid var(--lightgray);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--lightgray);
+
+  h3 {
+    padding: 0.75rem 1rem;
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--gray);
+    border-bottom: 1px solid var(--light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .graph-outer {
+    padding: 0;
+  }
+
+  // Node styling
+  .node {
+    cursor: pointer;
+
+    circle {
+      transition: all var(--transition-fast);
+      stroke: var(--light);
+      stroke-width: 2px;
+    }
+
+    &:hover circle {
+      filter: drop-shadow(0 0 8px var(--secondary));
+    }
+
+    text {
+      fill: var(--darkgray);
+      font-size: 0.7rem;
+    }
+  }
+
+  // Link styling
+  line {
+    stroke: var(--gray);
+    opacity: 0.3;
+  }
+}
+
+.global-graph-icon {
+  background: var(--lightgray) !important;
+  border: 1px solid var(--gray) !important;
+  border-radius: 6px;
+  padding: 0.4rem;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    border-color: var(--secondary) !important;
+    box-shadow: 0 0 10px var(--secondary);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// ===================================
+// BACKLINKS - Connected notes
+// ===================================
+.backlinks {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--lightgray);
+
+  h3 {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background: var(--lightgray);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      border-color: var(--secondary);
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.3);
+      text-shadow: none;
+    }
+  }
+}
+
+// ===================================
+// TABLE OF CONTENTS
+// ===================================
+.toc {
+  font-size: 0.85rem;
+  padding: 1rem;
+  background: var(--lightgray);
+  border-radius: 8px;
+  border: 1px solid var(--lightgray);
+
+  h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gray);
+    margin-bottom: 0.75rem;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    margin: 0.25rem 0;
+    padding-left: 0.75rem;
+    border-left: 2px solid transparent;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      border-left-color: var(--secondary);
+    }
+  }
+
+  a {
+    color: var(--darkgray);
+    border-bottom: none;
+
+    &:hover {
+      color: var(--secondary);
+      text-shadow: none;
+    }
+  }
+
+  .depth-1 {
+    font-weight: 600;
+  }
+
+  .depth-2 {
+    padding-left: 1.25rem;
+  }
+
+  .depth-3 {
+    padding-left: 1.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+// ===================================
+// TAGS - Clean chips
+// ===================================
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+
+  a {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.75rem;
+    background: var(--lightgray);
+    border-radius: 20px;
+    color: var(--gray);
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
+      text-shadow: none;
+    }
+  }
+}
+
+// ===================================
+// CONTENT META - Subtle styling
+// ===================================
+.content-meta {
+  color: var(--gray);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+// ===================================
+// BREADCRUMBS
+// ===================================
+.breadcrumb-container {
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-bottom: 1rem;
+
+  a {
+    color: var(--gray);
+    border-bottom: none;
+
+    &:hover {
+      color: var(--secondary);
+    }
+  }
+}
+
+// ===================================
+// FOOTER
+// ===================================
 footer {
   margin-top: 4rem;
   padding: 2rem 0;
@@ -134,13 +428,14 @@ footer {
     a {
       font-size: 0.9rem;
       color: var(--gray);
+      border-bottom: none;
 
       &:hover {
         color: var(--secondary);
+        text-shadow: var(--glow-strength) var(--secondary);
       }
     }
 
-    // Add separator styling
     a:not(:last-child)::after {
       content: " | ";
       color: var(--gray);
@@ -149,15 +444,19 @@ footer {
   }
 }
 
-// Horizontal rule - clean divider
+// ===================================
+// HORIZONTAL RULES
+// ===================================
 hr {
   border: none;
   height: 1px;
-  background: var(--lightgray);
+  background: linear-gradient(90deg, transparent, var(--lightgray), transparent);
   margin: 3rem 0;
 }
 
-// Code blocks - clean styling
+// ===================================
+// CODE BLOCKS
+// ===================================
 pre {
   background: var(--lightgray);
   border: 1px solid var(--lightgray);
@@ -172,111 +471,91 @@ code {
   font-size: 0.9em;
 }
 
-// Table of contents styling (right sidebar)
-.sidebar.right {
-  position: sticky;
-  top: 2rem;
-  max-height: calc(100vh - 4rem);
-  overflow-y: auto;
-
-  @media all and (max-width: 1200px) {
-    display: none !important;
-  }
-}
-
-.toc {
-  font-size: 0.85rem;
-
-  .depth-1 {
-    font-weight: 600;
-  }
-}
-
-// Content meta (date, reading time) - subtle styling
-.content-meta {
-  color: var(--gray);
-  font-size: 0.9rem;
-  margin-bottom: 2rem;
-}
-
-// Tag list - clean chips
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-
-  a {
-    font-size: 0.8rem;
-    padding: 0.25rem 0.75rem;
-    background: var(--lightgray);
-    border-radius: 20px;
-    color: var(--gray);
-
-    &:hover {
-      background: var(--highlight);
-      color: var(--secondary);
-      text-decoration: none;
-    }
-  }
-}
-
-// Breadcrumbs - subtle
-.breadcrumb-container {
-  font-size: 0.85rem;
-  color: var(--gray);
-  margin-bottom: 1rem;
-}
-
-// Search styling
-.search {
-  button {
-    background: transparent;
-    border: 1px solid var(--lightgray);
-    border-radius: 6px;
-    padding: 0.4rem 0.8rem;
-    color: var(--gray);
-    cursor: pointer;
-    transition: all 0.15s ease;
-
-    &:hover {
-      border-color: var(--secondary);
-      color: var(--secondary);
-    }
-  }
-}
-
-// Dark mode toggle - clean
+// ===================================
+// DARK MODE TOGGLE
+// ===================================
 .darkmode {
   svg {
     cursor: pointer;
     opacity: 0.7;
-    transition: opacity 0.15s ease;
+    transition: all var(--transition-fast);
 
     &:hover {
       opacity: 1;
+      filter: drop-shadow(0 0 8px var(--secondary));
     }
   }
 }
 
-// Backlinks section (if shown)
-.backlinks {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--lightgray);
+// ===================================
+// READING PROGRESS BAR
+// ===================================
+.navigation-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--secondary), var(--tertiary));
+  box-shadow: 0 0 10px var(--secondary);
+  z-index: 9999;
+}
 
-  h3 {
-    font-size: 1rem;
-    color: var(--gray);
-    margin-bottom: 1rem;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
+// ===================================
+// LISTS - Better styling
+// ===================================
+article ul, article ol {
   li {
     margin-bottom: 0.5rem;
+
+    &::marker {
+      color: var(--secondary);
+    }
+  }
+}
+
+// ===================================
+// RESPONSIVE SIDEBAR (right)
+// ===================================
+.sidebar.right {
+  @media all and (max-width: 1400px) {
+    display: none !important;
+  }
+}
+
+// ===================================
+// SMOOTH PAGE TRANSITIONS
+// ===================================
+article {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===================================
+// SMALL TEXT (for tips/hints)
+// ===================================
+small {
+  color: var(--gray);
+  font-size: 0.85rem;
+  display: block;
+  margin-top: 1rem;
+}
+
+// ===================================
+// HIDDEN SEARCH BUTTON (keep shortcut)
+// ===================================
+.search {
+  .search-button {
+    display: none;
   }
 }
