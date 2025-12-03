@@ -2,13 +2,11 @@
 title: Keith Perez
 ---
 
-I'm Keith—a husband, father, worship leader, and designer based in Illinois.
-
-This is my digital garden. A place where I think out loud about faith, masculinity, marriage, and what it looks like to become the kind of man worth following. Some of these notes are polished. Most aren't. They're working ideas—things I'm still wrestling with, refining, and living into.
+This is my digital garden. A place where I think out loud about faith, masculinity, marriage, and what it looks like to become the kind of man worth following. Some of these notes are polished. Most aren't. They're working ideas — things I'm still wrestling with, refining, and living into.
 
 ---
 
-### Start Here
+### A few places to start
 
 - [[my journey]] — How I got here
 - [[rooted masculinity]] — The kind of man I'm trying to become
@@ -17,7 +15,7 @@ This is my digital garden. A place where I think out loud about faith, masculini
 
 ---
 
-### Elsewhere
+### Other stuff I do
 
 - [Then Create](https://thencreate.design) — My design studio
 - [Oro En Marrow](https://open.spotify.com/artist/3K1o0ml4fP5YK0123UTTRs) — My music
@@ -25,5 +23,3 @@ This is my digital garden. A place where I think out loud about faith, masculini
 ---
 
 Thanks for being here. Look around. Take what's useful.
-
-<small>tip: press ⌘ + K to search</small>
