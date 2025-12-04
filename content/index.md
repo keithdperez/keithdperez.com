@@ -2,26 +2,25 @@
 title: Keith Perez
 ---
 
-Hey, I'm **Keith Perez**—a husband, father, worship leader, and designer based in Illinois.
+I'm **Keith Perez**—I do mixing & mastering for worship artists, songwriters, and independent musicians.
 
-This is my digital garden. A place where I think out loud about faith, masculinity, marriage, and what it looks like to become the kind of man worth following. Some of these notes are polished. Most aren't. They're working ideas—things I'm still wrestling with, refining, and living into.
+Whether you're working on a single, an EP, or a full project, I bring clarity, depth, and presence to your sound. My approach is rooted in serving the song and honoring the emotion behind it.
 
----
-
-### Topics
-
-[[rooted masculinity]] | [[holy ambition]] | [[clarity is power]] | [[spiritual fatherhood]]
+→ **[[mixing and mastering services]]** — Pricing, process, and what to expect
 
 ---
 
-### Recent Notes
+### Writings
 
+This is also my digital garden—a space where I think out loud about faith, masculinity, marriage, and what it means to live with integrity and intention.
+
+**Start here:**
 - [[my journey]] — How I got here
 - [[rooted masculinity]] — The kind of man I'm trying to become
 - [[holy ambition]] — Building without burning out
-- [[become the same man inside and out]] — Integrity and wholeness
-- [[unshakable presence]] — Staying grounded
-- [[carry weight well]] — Strength without striving
+
+**Explore more:**
+[[rooted masculinity]] | [[holy ambition]] | [[clarity is power]] | [[spiritual fatherhood]]
 
 ---
 
