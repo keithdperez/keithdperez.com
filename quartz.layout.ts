@@ -4,7 +4,20 @@ import * as Component from "./quartz/components"
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [Component.PageTitle(), Component.Spacer(), Component.Search(), Component.Darkmode()],
+  header: [
+    Component.PageTitle(),
+    Component.Spacer(),
+    Component.NavLinks({
+      links: {
+        Thoughts: "thoughts/",
+        Projects: "projects/",
+        Resources: "resources/",
+        About: "about",
+      },
+    }),
+    Component.Search(),
+    Component.Darkmode(),
+  ],
   afterBody: [
     Component.Graph({
       localGraph: {

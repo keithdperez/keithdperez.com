@@ -29,6 +29,8 @@ PageTitle.css = `
 .page-title img {
   height: 80px;
   width: 80px;
+  min-width: 80px;
+  min-height: 80px;
   border-radius: 50%;
   object-fit: cover;
 }

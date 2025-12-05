@@ -1,0 +1,11 @@
+<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<video id="player" controls playsinline style="width:100%;height:100%;display:block;background:#000"></video>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+const video = document.getElementById('player');
+const params = new URLSearchParams(location.search);
+const src = params.get('src');
+if (!src) { document.body.innerHTML = 'Missing ?src='; }
+else if (Hls.isSupported()) { const hls = new Hls(); hls.loadSource(src); hls.attachMedia(video); }
+else if (video.canPlayType('application/vnd.apple.mpegurl')) { video.src = src; }
+</script>
