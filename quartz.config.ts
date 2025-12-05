@@ -33,6 +33,7 @@ const config: QuartzConfig = {
       "bases",
       "moc",
       "attachments",
+      "projects",
       "AGENTS.md",
       "test.mdenc",
       "life-journal-links.json",

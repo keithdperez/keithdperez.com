@@ -10,7 +10,6 @@ export const sharedPageComponents: SharedLayout = {
     Component.NavLinks({
       links: {
         Thoughts: "thoughts/",
-        Projects: "projects/",
         Resources: "resources/",
         About: "about",
       },
