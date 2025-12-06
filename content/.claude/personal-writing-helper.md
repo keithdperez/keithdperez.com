@@ -1,1 +1,0 @@
-/Users/keithperez/Library/Mobile Documents/iCloud~md~obsidian/Documents/Keith/agents/personal-writing-helper.md

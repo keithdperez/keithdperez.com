@@ -9,8 +9,8 @@ export const sharedPageComponents: SharedLayout = {
     Component.Spacer(),
     Component.NavLinks({
       links: {
-        Thoughts: "thoughts/",
-        Resources: "resources/",
+        Writing: "thoughts/",
+        Work: "work",
         About: "about",
       },
     }),
