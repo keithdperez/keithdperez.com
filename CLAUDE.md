@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a personal website built with Quartz v4, a static site generator that publishes digital gardens and notes from Markdown files. The site is deployed at keithdperez.com and uses content from an Obsidian vault (symlinked at `content/`).
+This is a personal website built with Quartz v4, a static site generator that publishes digital gardens and notes from Markdown files. The site is deployed at keithdperez.com and uses content from an Obsidian vault via git submodule at `content/`.
 
 ## Build Commands
 
@@ -47,7 +47,7 @@ Plugin order matters—transformers execute sequentially and some are position-s
   - `quartz/processors/` - Content processing pipeline
   - `quartz/styles/` - SCSS stylesheets
   - `quartz/cli/` - CLI command handlers
-- `content/` - Markdown content (symlinked to Obsidian vault)
+- `content/` - Markdown content (git submodule → keithdperez/obsidian-vault)
 - `public/` - Build output
 - `docs/` - Quartz framework documentation
 
@@ -64,11 +64,11 @@ Plugin order matters—transformers execute sequentially and some are position-s
 
 ### Custom Configuration
 This site uses:
-- Custom color theme (warm browns/tans)
+- Custom color theme (cool blues/cyans)
 - Plausible analytics
 - Conditional breadcrumbs (hidden on index)
-- Content from Obsidian vault at `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Keith/personal`
-- Ignores patterns: `private`, `templates`, `.obsidian`, `archive`
+- Content via git submodule from `keithdperez/obsidian-vault` repo
+- Ignores patterns: private, templates, .obsidian, archive, journal, daily, bible, reference, agents, .claude, _NoteCompanion, .notecompanion, bases, moc, attachments, projects, resources, production, church, guides
 
 ## Technical Stack
 - **Runtime**: Node.js 22+, npm 10.9.2+
@@ -80,8 +80,18 @@ This site uses:
 - **Hot reload**: chokidar file watcher + WebSocket
 
 ## Important Notes
-- Content directory is a symlink—changes update both Obsidian and site
+- Content is a git submodule pointing to `keithdperez/obsidian-vault`
+- Local vault is at `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Keith`
 - Plugin order in `quartz.config.ts` affects transformation results
 - Components use Preact JSX (`jsxImportSource: "preact"`)
 - Tests use tsx test runner: `tsx --test`
 - CLI entry point: `quartz/bootstrap-cli.mjs`
+
+## Deployment Pipeline
+1. Edit content in Obsidian (synced to iCloud)
+2. Push vault changes to `keithdperez/obsidian-vault` (main branch)
+3. Vault repo's GitHub Action triggers `repository_dispatch` event
+4. Site repo receives `vault-update` event and rebuilds
+5. Deploys to GitHub Pages at keithdperez.com
+
+To manually trigger: `gh api repos/keithdperez/keithdperez.com/dispatches -X POST -f event_type=vault-update`
