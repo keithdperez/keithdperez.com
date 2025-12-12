@@ -95,3 +95,21 @@ This site uses:
 5. Deploys to GitHub Pages at keithdperez.com
 
 To manually trigger: `gh api repos/keithdperez/keithdperez.com/dispatches -X POST -f event_type=vault-update`
+
+## Mobile Workflow with Claude GitHub App
+The Claude GitHub App allows making site changes from mobile devices:
+1. Open GitHub mobile app → keithdperez/keithdperez.com repository
+2. Create a new Issue or comment on existing issue
+3. Tag `@claude` and describe the requested change (e.g., "change the font to Merriweather" or "make sidebar darker")
+4. Claude automatically makes the changes, commits to v4 branch
+5. Site automatically rebuilds and deploys via GitHub Pages
+
+### Design Change Guidelines
+When making design/UI changes requested via issues:
+- **Typography changes**: Edit `quartz.config.ts` → `theme.typography` section
+- **Color changes**: Edit `quartz.config.ts` → `theme.colors` section (lightMode and darkMode)
+- **Layout changes**: Edit `quartz.layout.ts` → modify component placement
+- **Custom styles**: Edit files in `quartz/styles/` directory
+- **Component changes**: Edit files in `quartz/components/` directory
+
+Always verify changes compile before committing: `npx quartz build`
