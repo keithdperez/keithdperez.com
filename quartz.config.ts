@@ -18,29 +18,17 @@ const config: QuartzConfig = {
     locale: "en-US",
     baseUrl: "keithdperez.com",
     ignorePatterns: [
-      "private",
-      "templates",
+      "private",          // All private content consolidated here
+      "templates",        // Obsidian templates
+      "daily",            // Daily notes
+      "attachments",      // Images/files (but assets still work)
       ".obsidian",
       ".github",
       ".git",
       ".gitignore",
-      "archive",
-      "journal",
-      "daily",
-      "bible",
-      "reference",
-      "agents",
       ".claude",
       "_NoteCompanion",
       ".notecompanion",
-      "bases",
-      "moc",
-      "attachments",
-      "projects",
-      "resources",
-      "production",
-      "church",
-      "guides",
       "AGENTS.md",
       "test.mdenc",
       "life-journal-links.json",
