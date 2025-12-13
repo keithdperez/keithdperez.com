@@ -5,6 +5,7 @@ permissions:
   pull-requests: write
   issues: write
   actions: read
+  id-token: write
 
 on:
   issue_comment:
@@ -38,6 +39,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           # Allow Claude to run multiple iterations to complete complex tasks
           claude_args: "--max-turns 10"
 
