@@ -54,16 +54,16 @@ html {
 header {
   max-width: var(--content-width);
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  border-bottom: 1px solid var(--lightgray);
+  gap: 1rem;
+  border-bottom: none;
 
   .page-title {
     margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 400;
 
     a {
       color: var(--dark);
@@ -87,8 +87,28 @@ header {
     }
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Navigation links styling
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+
+  a {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--dark);
+    opacity: 0.8;
+    transition: opacity var(--transition-fast), color var(--transition-fast);
+
+    &:hover {
+      opacity: 1;
+      color: var(--secondary);
     }
   }
 }
