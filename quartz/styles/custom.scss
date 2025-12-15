@@ -1,3 +1,176 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// Stephango.com inspired styles
+// Matching his typography, spacing, and layout
+
+:root {
+  --heading-weight: 500;
+  --line-height: 1.5;
+}
+
+// Body font improvements to match stephango.com
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-size: 1.125rem; // ~18px base
+  line-height: var(--line-height);
+}
+
+// Reduce top spacing
+.page > #quartz-body {
+  & .sidebar {
+    padding-top: 2rem;
+  }
+
+  & .page-header {
+    margin-top: 2rem;
+    margin-bottom: 2em;
+  }
+}
+
+// Article styling
+article {
+  font-size: inherit;
+  line-height: var(--line-height);
+  font-weight: 400;
+}
+
+// Lighter heading weights (matching stephango.com)
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--heading-weight);
+  line-height: 1.3;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: calc(1.35em + 0.55vw);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-top: 1.5em;
+  margin-bottom: 0.25em;
+}
+
+h2 {
+  font-weight: var(--heading-weight);
+  font-size: calc(1em + 0.2vw);
+  letter-spacing: -0.015em;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  font-weight: var(--heading-weight);
+  font-size: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h4 {
+  font-size: 1em;
+  font-weight: 600;
+  margin-top: 1em;
+}
+
+// Article title styling (the main page title)
+.article-title {
+  font-weight: 500;
+  font-size: calc(1.35em + 0.55vw);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0 0 0.25em 0;
+}
+
+// Content meta (date, reading time) styling
+.content-meta {
+  color: var(--gray);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+// Body text improvements
+p,
+li {
+  line-height: var(--line-height);
+}
+
+// Link styling - less aggressive highlighting, matching stephango
+a {
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--secondary);
+  }
+}
+
+a.internal {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+
+  &:hover {
+    background-color: var(--highlight);
+  }
+}
+
+// Blockquote styling
+blockquote {
+  padding-left: 1.5em;
+  margin: 1.5em 0;
+  border-left: 2px solid var(--dark);
+
+  p {
+    margin: 0;
+  }
+}
+
+// HR styling like stephango (three dots in articles)
+article hr {
+  margin-top: calc(2em + 2vh);
+  margin-bottom: calc(2em + 2vh);
+  border: 0;
+  background: none;
+  text-align: center;
+  overflow: visible;
+  height: auto;
+
+  &::before {
+    content: "\2022\2022\2022";
+    display: inline-block;
+    font-size: calc(0.8em + 0.2vw);
+    margin-left: 0.6em;
+    letter-spacing: 1.25em;
+    color: var(--gray);
+    position: relative;
+    top: -0.75em;
+  }
+}
+
+// Footer styling
+footer {
+  margin-top: 4rem;
+}
+
+// Page title in header
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+// Mobile adjustments
+@media (max-width: 860px) {
+  :root {
+    --heading-weight: 600;
+  }
+
+  .page > #quartz-body .page-header {
+    margin-top: 1rem;
+    margin-bottom: 2em;
+  }
+}
