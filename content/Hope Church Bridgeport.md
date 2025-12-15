@@ -1,0 +1,5 @@
+- 3 TVs
+- 1 conf monitor
+- PTZ cam
+- Drum mic pack
+- foyer monitor
