@@ -8,9 +8,12 @@ export const sharedPageComponents: SharedLayout = {
   header: [Component.PageTitle(), Component.Spacer(), Component.Search(), Component.Darkmode()],
   afterBody: [],
   footer: Component.Footer({
+    heading: "Get in touch",
+    description: "Feel free to reach out via email or check out my work",
     links: {
+      "keith@thencreate.design": "mailto:keith@thencreate.design",
       "then, create.": "https://thencreate.design",
-      email: "mailto:keith@thencreate.design",
+      RSS: "/index.xml",
     },
   }),
 }

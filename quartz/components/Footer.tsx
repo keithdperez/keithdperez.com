@@ -1,29 +1,35 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import style from "./styles/footer.scss"
-import { version } from "../../package.json"
-import { i18n } from "../i18n"
 
 interface Options {
+  heading?: string
+  description?: string
   links: Record<string, string>
 }
 
 export default ((opts?: Options) => {
-  const Footer: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
-    const year = new Date().getFullYear()
-    const links = opts?.links ?? []
+  const Footer: QuartzComponent = ({ displayClass }: QuartzComponentProps) => {
+    const heading = opts?.heading ?? "Get in touch"
+    const description = opts?.description
+    const links = opts?.links ?? {}
+    const linkEntries = Object.entries(links)
+
     return (
       <footer class={`${displayClass ?? ""}`}>
-        <p>
-          {i18n(cfg.locale).components.footer.createdWith}{" "}
-          <a href="https://quartz.jzhao.xyz/">Quartz v{version}</a> © {year}
-        </p>
-        <ul>
-          {Object.entries(links).map(([text, link]) => (
-            <li>
-              <a href={link}>{text}</a>
-            </li>
-          ))}
-        </ul>
+        <div class="footer-content">
+          <p class="footer-heading">{heading}</p>
+          {description && <p class="footer-description">{description}</p>}
+          {linkEntries.length > 0 && (
+            <p class="footer-links">
+              {linkEntries.map(([text, link], index) => (
+                <>
+                  <a href={link}>{text}</a>
+                  {index < linkEntries.length - 1 && <span class="footer-separator"> · </span>}
+                </>
+              ))}
+            </p>
+          )}
+        </div>
       </footer>
     )
   }
