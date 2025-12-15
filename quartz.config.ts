@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Quartz 4",
+    pageTitle: "Keith Perez",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -16,39 +16,41 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "quartz.jzhao.xyz",
+    baseUrl: "keithdperez.com",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
+        header: "Inter",
+        body: "Inter",
         code: "IBM Plex Mono",
       },
       colors: {
+        // Flexoki Light (Paper)
         lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#fff23688",
+          light: "#FFFCF0", // --flexoki-paper (background)
+          lightgray: "#E6E4D9", // --flexoki-100 (borders, subtle backgrounds)
+          gray: "#878580", // --flexoki-500 (muted text)
+          darkgray: "#6F6E69", // --flexoki-600 (secondary text)
+          dark: "#100F0F", // --flexoki-black (primary text)
+          secondary: "#24837B", // --flexoki-cyan-600 (links, accents)
+          tertiary: "#3AA99F", // --flexoki-cyan-400 (hover states)
+          highlight: "rgba(206, 205, 195, 0.15)", // subtle highlight
+          textHighlight: "#F6E2A088", // --flexoki-yellow-100 (text highlight)
         },
+        // Flexoki Dark (Black)
         darkMode: {
-          light: "#161618",
-          lightgray: "#393639",
-          gray: "#646464",
-          darkgray: "#d4d4d4",
-          dark: "#ebebec",
-          secondary: "#7b97aa",
-          tertiary: "#84a59d",
-          highlight: "rgba(143, 159, 169, 0.15)",
-          textHighlight: "#b3aa0288",
+          light: "#100F0F", // --flexoki-black (background)
+          lightgray: "#282726", // --flexoki-900 (borders, subtle backgrounds)
+          gray: "#878580", // --flexoki-500 (muted text)
+          darkgray: "#CECDC3", // --flexoki-200 (secondary text)
+          dark: "#CECDC3", // --flexoki-200 (primary text)
+          secondary: "#3AA99F", // --flexoki-cyan-400 (links, accents)
+          tertiary: "#24837B", // --flexoki-cyan-600 (hover states)
+          highlight: "rgba(87, 86, 83, 0.15)", // subtle highlight
+          textHighlight: "#3A2D0488", // --flexoki-yellow-900 (text highlight)
         },
       },
     },
@@ -61,8 +63,8 @@ const config: QuartzConfig = {
       }),
       Plugin.SyntaxHighlighting({
         theme: {
-          light: "github-light",
-          dark: "github-dark",
+          light: "vitesse-light",
+          dark: "vitesse-dark",
         },
         keepBackground: false,
       }),
@@ -88,7 +90,6 @@ const config: QuartzConfig = {
       Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
-      // Comment out CustomOgImages to speed up build time
       Plugin.CustomOgImages(),
     ],
   },
