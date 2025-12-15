@@ -24,7 +24,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetch all history for git info
-          submodules: recursive
+      - name: Checkout vault content
+        uses: actions/checkout@v4
+        with:
+          repository: keithdperez/obsidian-vault
+          path: content
           token: ${{ secrets.VAULT_ACCESS_TOKEN }}
       - uses: actions/setup-node@v4
         with:
