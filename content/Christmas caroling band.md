@@ -2,7 +2,6 @@
 # Joy To The World
 
 ```chords
-JOY TO THE WORLD
 [G]Joy to the world, the Lord is come
 Let [C]Earth rec[D]eive her [G]King
 Let [G]every heart prepare Him room
@@ -150,115 +149,115 @@ From the [G]bottom of my [C]heart
 Sleigh bells [C]ring, are you listening?
 In the [G]lane, snow is glistening
 A [G]beautiful sight, we're happy tonight
-Walking in a winter wonderland
+Walking in a winter wonder[C]land
 
-Gone away is the bluebird
-Here to stay is a new bird
+Gone aw[C]ay is the bluebird
+Here to [G]stay is a new bird
 He sings a love song as we go along
-Walking in a winter wonderland
+Walking in a winter wonder[C]land
 
-In the meadow we can build a snowman
+[E]In the meadow we can build a snowman
 Then pretend that he is Parson Brown
-He'll say: Are you married?
+[G]He'll say: Are you married?
 We'll say: No man,
-But you can do the job when you're in town
+But [G]you can do the job when you're in [D]town
 
-Later on, we'll conspire
-As we dream by the fire
+Later [C]on, we'll conspire
+As we [G]dream by the fire
 To face unafraid, the plans that we've made
-Walking in a winter wonderland
+Walking in a winter wonder[C]land
 
-In the meadow we can build a snowman
+[E]In the meadow we can build a snowman
 And pretend that he's a circus clown
-We'll have lots of fun with mister snowman
-Until the other kiddies knock him down
+[G]We'll have lots of fun with mister snowman
+[G]Until the other [D]kiddies knock him [G]down
 
-When it snows, ain't it thrilling
-Though your nose gets a chilling
+When it [C]snows, ain't it thrilling
+Though your [G]nose gets a chilling
 We'll frolic and play the Eskimo way
-Walking in a winter wonderland
-Walking in a winter wonderland
-Walking in a winter wonderland!
+[D]Walking in a [G]winter wonder[C]land
+[D]Walking in a [G]winter wonder[C]land
+[D]Walking in a [G]winter wonder[C]land!
 ```
 
 # Up On The Housetop
 
 ```chords
-Up on the housetop, reindeer pause
-Out jumps good old Santa Claus
-Down through the chimney, with lots of toys
-All for the little ones’ Christmas joys
+[C]Up on the housetop, reindeer pause
+[G]Out jumps good old Santa Claus
+[C]Down through the chimney, with lots of toys
+[F]All for the [C]little ones’ [G]Christmas [C]joys
 
-Ho, ho, ho! Who wouldn’t go?
-Ho, ho, ho! Who wouldn’t go?
-Up on the housetop, click, click, click
-Down through the chimney with old Saint Nick
+[F]Ho, ho, ho! [C]Who wouldn’t go?
+[G]Ho, ho, ho! [C]Who wouldn’t go?
+[C]Up on the housetop, [Dm]click, click, click
+[G]Down through the chimney with old Saint [C]Nick
 
-First come the stockings in a row
-Filled with goodies top to toe
-Then to the tree old Santa springs
-To place the presents that he brings
+[C]First come the stockings in a row
+[G]Filled with goodies top to toe
+[C]Then to the tree old Santa springs
+[F]To place the [C]presents [G]that he [C]brings
 
-Ho, ho, ho! Who wouldn’t go?
-Ho, ho, ho! Who wouldn’t go?
-Up on the housetop, click, click, click.
-Down through the chimney with old Saint Nick
+[F]Ho, ho, ho! [C]Who wouldn’t go?
+[G]Ho, ho, ho! [C]Who wouldn’t go?
+[C]Up on the housetop, [Dm]click, click, click.
+[G]Down through the chimney with old Saint [C]Nick
 
-Everything delivered from his sack
-Santa has a cookie snack
-Back to the reindeer and the sleigh
-Into the night they fly away
+[C]Everything delivered from his sack
+[G]Santa has a cookie snack
+[C]Back to the reindeer and the sleigh
+[F]Into the [C]night they [G]fly [C]away
 
-Ho, ho, ho! Who wouldn’t go?
-Ho, ho, ho! Who wouldn’t go?
-Up on the housetop, click, click, click
-Down through the chimney with old Saint Nick
+[F]Ho, ho, ho! [C]Who wouldn’t go?
+[G]Ho, ho, ho! [C]Who wouldn’t go?
+[C]Up on the housetop, [Dm]click, click, click.
+[G]Down through the chimney with old Saint [C]Nick
 ```
 
 # Santa Claus Is Coming To Town
 
 ```chords
-You better watch out, you better not cry
-Better not pout, I'm telling you why
-Santa Claus is comin' to town
+You [G]better watch out, you [C]better not cry
+[G]Better not pout, I'm [C]telling you why
+[G]Santa Claus is [D]comin' to [G]town
 
-He's making a list and checking it twice
-Gonna find out who's naughty and nice
-Santa Claus is comin' to town
+He's [G]making a list and [C]checking it twice
+[G]Gonna find out who's [C]naughty and nice
+[G]Santa Claus is [D]comin' to [G]town
 
-He sees you when you're sleepin'
-He knows when you're awake
-he knows if you've been bad or good
-So be good, for goodness sake!
+He [G]sees you when you're [C]sleepin'
+He [G]knows when you're aw[C]ake
+he [A]knows if you've been [D]bad or good
+So be [A]good, for goodness [D]sake!
 
-You better watch out, you better not cry
-Better not pout, I'm telling you why
-Santa Claus is comin' to town
+[G]You better watch out, you [C]better not cry
+[G]Better not pout, I'm [C]telling you why
+[G]Santa Claus is [D]comin' to [G]town
 ```
 
 # Drummer Boy
 
 ```chords
-Come, they told me, pa rum pum pum pum 
+[C]Come, they told me, pa rum pum pum pum 
 A newborn King to see, pa rum pum pum pum 
-Our finest gifts we bring, pa rum pum pum pum 
-To lay before the King, pa rum pum pum pum 
-Rum pum pum pum, rum pum pum pum. 
-So to honour Him, pa rum pum pum pum 
+[G]Our finest gifts we bring, pa rum pum pum pum 
+To lay bef[C]ore the King, pa rum pum pum [F]pum 
+Rum pum pum [C]pum, rum pum pum [G]pum. 
+[C]So to honour Him, pa rum pum pum pum 
 When we come.
 
-Little baby, pa rum pum pum pum 
+[C]Little baby, pa rum pum pum pum 
 I am a poor boy too, pa rum pum pum pum 
-I have no gift to bring, pa rum pum pum pum 
-That’s fit to give a King, pa rum pum pum pum
-Rum pum pum pum, rum pum pum pum
-Shall I play for you, pa rum pum pum pum
+[G]I have no gift to bring, pa rum pum pum pum 
+That’s fit to [C]give a King, pa rum pum pum [F]pum
+Rum pum pum [C]pum, rum pum pum [G]pum
+[C]Shall I play for you, pa rum pum pum pum
 On my drum? 
 
-Mary nodded, pa rum pum pum pum 
+[C]Mary nodded, pa rum pum pum pum 
 The ox and lamb kept time, pa rum pum pum pum 
-I played my drum for Him, pa rum pum pum pum 
-I played my best for Him, pa rum pum pum pum 
-Rum pum pum pum, rum pum pum pum. 
-Then He smiled at me, pa rum pum pum pum, 
+[G]I played my drum for Him, pa rum pum pum pum 
+I played my [C]best for Him, pa rum pum pum [F]pum 
+Rum pum pum [C]pum, rum pum pum [G]pum. 
+[C]Then He smiled at me, pa rum pum pum pum, 
 Me and my drum.
