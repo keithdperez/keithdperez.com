@@ -12,7 +12,11 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: 2vw auto 0 auto;
+  padding: 0 0 24rem;
+  overflow-x: hidden;
+  font-size: 1.8rem;
+  font-size: calc(1.5rem + 0.25vw);
   box-sizing: border-box;
   background-color: var(--light);
   font-family: var(--bodyFont);
@@ -155,9 +159,12 @@ a {
   }
 }
 
+// Simplified single-column layout inspired by stephango.com
 .page {
-  max-width: calc(#{map.get($breakpoints, desktop)} + 300px);
+  max-width: $contentWidth;
+  width: 88vw;
   margin: 0 auto;
+
   & article {
     & > h1 {
       font-size: 2rem;
@@ -184,123 +191,28 @@ a {
     }
   }
 
+  // Header: page title on left, darkmode on right
+  & > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em 0;
+  }
+
   & > #quartz-body {
-    display: grid;
-    grid-template-columns: #{map.get($desktopGrid, templateColumns)};
-    grid-template-rows: #{map.get($desktopGrid, templateRows)};
-    column-gap: #{map.get($desktopGrid, columnGap)};
-    row-gap: #{map.get($desktopGrid, rowGap)};
-    grid-template-areas: #{map.get($desktopGrid, templateAreas)};
-
-    @media all and ($tablet) {
-      grid-template-columns: #{map.get($tabletGrid, templateColumns)};
-      grid-template-rows: #{map.get($tabletGrid, templateRows)};
-      column-gap: #{map.get($tabletGrid, columnGap)};
-      row-gap: #{map.get($tabletGrid, rowGap)};
-      grid-template-areas: #{map.get($tabletGrid, templateAreas)};
-    }
-    @media all and ($mobile) {
-      grid-template-columns: #{map.get($mobileGrid, templateColumns)};
-      grid-template-rows: #{map.get($mobileGrid, templateRows)};
-      column-gap: #{map.get($mobileGrid, columnGap)};
-      row-gap: #{map.get($mobileGrid, rowGap)};
-      grid-template-areas: #{map.get($mobileGrid, templateAreas)};
-    }
-
-    @media all and not ($desktop) {
-      padding: 0 1rem;
-    }
-    @media all and ($mobile) {
-      margin: 0 auto;
-    }
-
-    & .sidebar {
-      gap: 1.2rem;
-      top: 0;
-      box-sizing: border-box;
-      padding: $topSpacing 2rem 2rem 2rem;
-      display: flex;
-      height: 100vh;
-      position: sticky;
-    }
-
-    & .sidebar.left {
-      z-index: 1;
-      grid-area: grid-sidebar-left;
-      flex-direction: column;
-      @media all and ($mobile) {
-        gap: 0;
-        align-items: center;
-        position: initial;
-        display: flex;
-        height: unset;
-        flex-direction: row;
-        padding: 0;
-        padding-top: 2rem;
-      }
-    }
-
-    & .sidebar.right {
-      grid-area: grid-sidebar-right;
-      margin-right: 0;
-      flex-direction: column;
-      @media all and ($mobile) {
-        margin-left: inherit;
-        margin-right: inherit;
-      }
-      @media all and not ($desktop) {
-        position: initial;
-        height: unset;
-        width: 100%;
-        flex-direction: row;
-        padding: 0;
-        & > * {
-          flex: 1;
-          max-height: 24rem;
-        }
-        & > .toc {
-          display: none;
-        }
-      }
-    }
-    & .page-header,
-    & .page-footer {
-      margin-top: 1rem;
-    }
+    display: block;
 
     & .page-header {
-      grid-area: grid-header;
-      margin: $topSpacing 0 0 0;
-      @media all and ($mobile) {
-        margin-top: 0;
-        padding: 0;
-      }
+      margin: 0 0 1em 0;
     }
 
-    & .center > article {
-      grid-area: grid-center;
-    }
-
-    & footer {
-      grid-area: grid-footer;
+    & .page-footer {
+      margin: 2em 0;
     }
 
     & .center,
     & footer {
       max-width: 100%;
-      min-width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      @media all and ($tablet) {
-        margin-right: 0;
-      }
-      @media all and ($mobile) {
-        margin-right: 0;
-        margin-left: 0;
-      }
-    }
-    & footer {
-      margin-left: 0;
     }
   }
 }
@@ -343,9 +255,9 @@ input[type="checkbox"] {
 }
 
 blockquote {
-  margin: 1rem 0;
+  margin: 1.5em 0;
   border-left: 3px solid var(--secondary);
-  padding-left: 1rem;
+  padding-left: 1.5em;
   transition: border-color 0.2s ease;
 }
 
@@ -394,28 +306,44 @@ h6 {
 // typography improvements
 h1 {
   font-size: 1.75rem;
-  margin-top: 2.25rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5em;
+  margin-bottom: 0.25em;
 }
 
 h2 {
   font-size: 1.4rem;
-  margin-top: 1.9rem;
-  margin-bottom: 1rem;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
 }
 
 h3 {
   font-size: 1.12rem;
-  margin-top: 1.62rem;
-  margin-bottom: 1rem;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
 }
 
 h4,
 h5,
 h6 {
   font-size: 1rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+// Article-specific heading spacing
+article {
+  h2 {
+    margin-top: 2em;
+  }
+
+  h1 + h2,
+  h2 + h3 {
+    margin-top: 1em;
+  }
+
+  h3 {
+    margin-top: 1.5em;
+  }
 }
 
 figure[data-rehype-pretty-code-figure] {
@@ -563,10 +491,15 @@ p > img + em {
 
 hr {
   width: 100%;
-  margin: 2rem auto;
+  margin: 1.5em 0;
   height: 1px;
   border: none;
   background-color: var(--lightgray);
+}
+
+article > hr {
+  margin-top: calc(2em + 2vh);
+  margin-bottom: calc(2em + 2vh);
 }
 
 audio,

@@ -45,6 +45,7 @@ PageTitle.css = `
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-grow: 1;
 }
 
 .page-title a {

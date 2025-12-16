@@ -5,10 +5,10 @@ import * as Component from "./quartz/components"
 // Simplified layout inspired by stephango.com - navigation at top
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [Component.PageTitle(), Component.Spacer(), Component.Search(), Component.Darkmode()],
+  header: [Component.PageTitle(), Component.Nav(), Component.Darkmode()],
   afterBody: [],
   footer: Component.Footer({
-    heading: "Get in touch",
+    heading: "",
     description: "Feel free to reach out via email or check out my work",
     links: {
       "keith@thencreate.design": "mailto:keith@thencreate.design",
@@ -21,7 +21,7 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 // Minimal single-column layout like stephango.com
 export const defaultContentPageLayout: PageLayout = {
-  beforeBody: [Component.ArticleTitle(), Component.ContentMeta(), Component.TagList()],
+  beforeBody: [Component.ArticleTitle(), Component.ContentMeta()],
   left: [],
   right: [],
 }
