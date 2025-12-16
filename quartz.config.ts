@@ -20,21 +20,21 @@ const config: QuartzConfig = {
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
-      fontOrigin: "googleFonts",
-      cdnCaching: true,
+      fontOrigin: "local",
+      cdnCaching: false,
       typography: {
-        header: "Inter",
-        body: "Inter",
-        code: "IBM Plex Mono",
+        header: "iA Writer Quattro",
+        body: "iA Writer Duo",
+        code: "iA Writer Mono",
       },
       colors: {
         // Flexoki Light (Paper)
         lightMode: {
           light: "#FFFCF0", // --flexoki-paper (background)
           lightgray: "#E6E4D9", // --flexoki-100 (borders, subtle backgrounds)
-          gray: "#878580", // --flexoki-500 (muted text)
-          darkgray: "#6F6E69", // --flexoki-600 (secondary text)
-          dark: "#100F0F", // --flexoki-black (primary text)
+          gray: "#6F6E69", // --flexoki-600 (muted text)
+          darkgray: "#100F0F", // --flexoki-black (body text)
+          dark: "#100F0F", // --flexoki-black (headings)
           secondary: "#24837B", // --flexoki-cyan-600 (links, accents)
           tertiary: "#3AA99F", // --flexoki-cyan-400 (hover states)
           highlight: "rgba(206, 205, 195, 0.15)", // subtle highlight
@@ -90,7 +90,7 @@ const config: QuartzConfig = {
       Plugin.Static(),
       Plugin.Favicon(),
       Plugin.NotFoundPage(),
-      Plugin.CustomOgImages(),
+      // Plugin.CustomOgImages(), // Disabled - requires Google Fonts
     ],
   },
 }

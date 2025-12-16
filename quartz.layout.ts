@@ -6,7 +6,7 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [Component.PageTitle(), Component.Nav(), Component.Darkmode()],
-  afterBody: [],
+  afterBody: [Component.LinkedMentions(), Component.Search()],
   footer: Component.Footer({
     heading: "",
     description: "Feel free to reach out via email or check out my work",
