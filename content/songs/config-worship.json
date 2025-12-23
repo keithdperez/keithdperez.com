@@ -1,0 +1,81 @@
+{
+  "settings": {
+    "lineinfo": true,
+    "suppress-empty-chords": true
+  },
+  "pdf": {
+    "papersize": "letter",
+    "theme": {
+      "foreground": "#1a1a1a",
+      "background": "#ffffff"
+    },
+    "fonts": {
+      "title": {
+        "name": "Helvetica-Bold",
+        "size": 20,
+        "color": "#1a1a1a"
+      },
+      "subtitle": {
+        "name": "Helvetica",
+        "size": 11,
+        "color": "#666666"
+      },
+      "text": {
+        "name": "Helvetica",
+        "size": 12,
+        "color": "#1a1a1a"
+      },
+      "chord": {
+        "name": "Helvetica-Bold",
+        "size": 10,
+        "color": "#2563eb"
+      },
+      "comment": {
+        "name": "Helvetica-Oblique",
+        "size": 10,
+        "color": "#6b7280"
+      },
+      "comment_italic": {
+        "name": "Helvetica-Oblique",
+        "size": 10,
+        "color": "#6b7280"
+      },
+      "tab": {
+        "name": "Courier",
+        "size": 10
+      },
+      "annotation": {
+        "name": "Helvetica-Oblique",
+        "size": 10,
+        "color": "#2563eb"
+      }
+    },
+    "spacing": {
+      "title": 2,
+      "lyrics": 1.35,
+      "chords": 1.35
+    },
+    "chorus": {
+      "indent": 0,
+      "bar": {
+        "offset": 0.5,
+        "width": 2,
+        "color": "#3b82f6"
+      },
+      "tag": "Chorus",
+      "recall": {
+        "quote": false,
+        "tag": "Chorus"
+      }
+    },
+    "footspace": 20,
+    "headspace": 20,
+    "marginbottom": 45,
+    "margintop": 45,
+    "marginleft": 50,
+    "marginright": 50
+  },
+  "diagnostics": {
+    "format": "\"ChordPro: Modern Worship Style - Clean sans-serif fonts for universal readability\""
+  }
+}

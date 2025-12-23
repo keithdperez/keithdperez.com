@@ -1,5 +1,3 @@
-
-
 # Joy To The World
 
 Joy to the world, the Lord is come
@@ -45,10 +43,10 @@ What fun it is to ride and sing a sleighing song tonight, oh!
 
 # O Come All Ye Faithful
 
-O come, all ye faithful, 
+O come, all ye faithful,
 Joyful and triumphant,
 O come ye, O come ye, to Bethlehem.
-Come and behold Him, 
+Come and behold Him,
 Born the King of angels;
 
 O come, let us adore Him,
@@ -56,10 +54,10 @@ O come, let us adore Him,
 O come, let us adore Him,
 Christ the Lord.
 
-Sing, choirs of angels, 
+Sing, choirs of angels,
 Sing in exultation;
 O sing, all ye citizens of heaven above!
-Glory to God, 
+Glory to God,
 Glory in the highest;
 
 # Rudolph the Red-Nosed Reindeer
@@ -212,26 +210,26 @@ Santa Claus is comin' to town
 
 # Drummer Boy
 
-Come, they told me, pa rum pum pum pum 
-A newborn King to see, pa rum pum pum pum 
-Our finest gifts we bring, pa rum pum pum pum 
-To lay before the King, pa rum pum pum pum 
-Rum pum pum pum, rum pum pum pum. 
-So to honour Him, pa rum pum pum pum 
+Come, they told me, pa rum pum pum pum
+A newborn King to see, pa rum pum pum pum
+Our finest gifts we bring, pa rum pum pum pum
+To lay before the King, pa rum pum pum pum
+Rum pum pum pum, rum pum pum pum.
+So to honour Him, pa rum pum pum pum
 When we come.
 
-Little baby, pa rum pum pum pum 
-I am a poor boy too, pa rum pum pum pum 
-I have no gift to bring, pa rum pum pum pum 
+Little baby, pa rum pum pum pum
+I am a poor boy too, pa rum pum pum pum
+I have no gift to bring, pa rum pum pum pum
 That’s fit to give a King, pa rum pum pum pum
 Rum pum pum pum, rum pum pum pum
 Shall I play for you, pa rum pum pum pum
-On my drum? 
+On my drum?
 
-Mary nodded, pa rum pum pum pum 
-The ox and lamb kept time, pa rum pum pum pum 
-I played my drum for Him, pa rum pum pum pum 
-I played my best for Him, pa rum pum pum pum 
-Rum pum pum pum, rum pum pum pum. 
-Then He smiled at me, pa rum pum pum pum, 
+Mary nodded, pa rum pum pum pum
+The ox and lamb kept time, pa rum pum pum pum
+I played my drum for Him, pa rum pum pum pum
+I played my best for Him, pa rum pum pum pum
+Rum pum pum pum, rum pum pum pum.
+Then He smiled at me, pa rum pum pum pum,
 Me and my drum.

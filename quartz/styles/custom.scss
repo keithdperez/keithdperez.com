@@ -230,10 +230,14 @@ blockquote {
   }
 }
 
-// HR styling like stephango (three dots in articles)
+// HR styling - default line
 article hr {
   margin-top: calc(2em + 2vh);
   margin-bottom: calc(2em + 2vh);
+}
+
+// Three dots divider - use with <hr class="dots" /> or via custom syntax
+article hr.dots {
   border: 0;
   background: none;
   text-align: center;

@@ -1,0 +1,39 @@
+{title: Silent Night}
+{subtitle: Stille Nacht}
+{artist: Joseph Mohr}
+{composer: Franz Xaver Gruber}
+{key: G}
+{time: 6/8}
+{tempo: 60}
+{tags: Christmas, Worship, Traditional, Carol}
+{copyright: Public Domain}
+{year: 1818}
+
+{comment: Gentle, peaceful carol - play softly}
+
+{start_of_verse}
+[G]Silent night, holy night!
+[D]All is calm, [G]all is bright.
+[C]Round yon Virgin, [G]Mother and Child.
+[C]Holy infant so [G]tender and mild,
+[D]Sleep in heavenly [Em]peace,
+[G]Sleep in [D]heavenly [G]peace
+{end_of_verse}
+
+{start_of_verse}
+[G]Silent night, holy night!
+[D]Shepherds quake [G]at the sight.
+[C]Glories stream from [G]heaven afar
+[C]Heavenly hosts sing [G]Alleluia,
+[D]Christ the Savior is [Em]born!
+[G]Christ the [D]Savior is [G]born.
+{end_of_verse}
+
+{start_of_verse}
+[G]Silent night, holy night!
+[D]Son of God, [G]love's pure light.
+[C]Radiant beams from [G]Thy holy face
+[C]With the dawn of re[G]deeming grace,
+[D]Jesus, Lord at Thy [Em]birth,
+[G]Jesus, [D]Lord at Thy [G]birth.
+{end_of_verse}
