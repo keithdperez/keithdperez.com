@@ -230,28 +230,6 @@ blockquote {
   }
 }
 
-// HR styling like stephango (three dots in articles)
-article hr {
-  margin-top: calc(2em + 2vh);
-  margin-bottom: calc(2em + 2vh);
-  border: 0;
-  background: none;
-  text-align: center;
-  overflow: visible;
-  height: auto;
-
-  &::before {
-    content: "\2022\2022\2022";
-    display: inline-block;
-    font-size: calc(0.8em + 0.2vw);
-    margin-left: 0.6em;
-    letter-spacing: 1.25em;
-    color: var(--gray);
-    position: relative;
-    top: -0.75em;
-  }
-}
-
 // Footer styling
 footer {
   margin-top: 4rem;
