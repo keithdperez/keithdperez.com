@@ -6,7 +6,8 @@ import { i18n } from "../i18n"
 const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzComponentProps) => {
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title
   const baseDir = pathToRoot(fileData.slug!)
-  const imagePath = joinSegments(baseDir, "static/new-favicon.png")
+  // Use absolute path for avatar to work correctly on all pages including 404
+  const imagePath = "/static/new-favicon.png"
 
   // Get the first folder in the path (e.g., "Writing" from "Writing/my-post")
   const slugParts = fileData.slug?.split("/") ?? []

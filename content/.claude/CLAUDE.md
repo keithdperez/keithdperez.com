@@ -15,14 +15,20 @@ This is Keith's personal Obsidian vault containing notes on faith, masculinity, 
 
 ## File Organization & Structure
 
+**Organizational Philosophy:**
+This vault follows **Steph Ango's flat structure** approach - minimal folders, metadata-driven organization. Notes are organized by frontmatter `categories` property rather than folder hierarchies.
+
 ### Directory Layout
 
+- **Root directory** — All content notes (essays, reflections, guides, church notes, agents)
 - `/daily/` — Daily notes in `YYYY-MM-DD.md` format (not published)
 - `/templates/` — Reusable note templates (daily-note, meeting_note, etc.)
-- `/private/` — Sensitive/personal content (never published)
 - `/attachments/` — Images, audio, PDFs; `/attachments/excalidraw/` for drawings
+- `/songs/` — Worship songs and chord charts
+- `/bible/` — Bible study notes (1,256 files, organized by book/chapter)
 - `/_NoteCompanion/` — NoteCompanion plugin data (not published)
-- Root directory — Main content notes (essays, reflections, concepts)
+
+**Note:** Previously used folders (agents, archive, church, guides, hubs, production, projects, resources) have been flattened to root. Organization is now handled through frontmatter metadata.
 
 ### Publishing Workflow
 
@@ -54,27 +60,50 @@ description: Optional meta description
 
 ## Content Patterns
 
-### Frontmatter Structure
+### Frontmatter Structure (Steph Ango Style)
 
+**Standard Pattern:**
 ```yaml
 ---
-title: Display Title
-publish: true  # or false/omitted
-description: Optional description for web
+categories:
+  - "[[Category]]"  # Primary organization (Church, Guides, Agents, Archive, Writing, etc.)
+type:
+  - "[[Type]]"      # Content type (Guide, Agent, Essay, Hub, etc.)
+publish: true        # or false - controls publishing to keithdperez.com
+status:
+  - "[[Status]]"    # Optional: Published, Draft, Active, Archived
+created: 2025-12-23  # YYYY-MM-DD format
+topics:
+  - topic1          # Lowercase thematic keywords
+  - topic2
 tags:
-  - optional-tag
-hubs:
-  - "[[Related Note]]"
-urls:
-  - https://example.com
+  - tag1
 ---
 ```
 
+**Key Principles:**
+- Use lowercase property names
+- Categories and types as wikilinks: `"[[Category]]"`
+- Topics as lowercase text
+- Date format: `YYYY-MM-DD`
+- Notes can belong to multiple categories
+- Publishing controlled by `publish: true/false` not folder location
+
 ### Linking & References
 
-- Use Obsidian `[[wikilinks]]` for internal note connections
+- Use Obsidian `[[wikilinks]]` for internal note connections (no folder paths)
+- Link format: `[[note-name]]` NOT `[[folder/note-name]]`
 - Preserve existing link patterns when editing
 - The `index.md` file serves as the public homepage/landing page
+
+### Category Hub Pages
+
+Navigational hub pages exist for major categories:
+- `Church.md` - All church tech and ministry notes
+- `Guides.md` - Technical guides and how-tos
+- `Agents.md` - Claude Code agent definitions
+- `Archive.md` - Archived/historical content
+- Plus content hubs: `Writing.md`, `Books.md`, `Articles.md`, `Podcasts.md`, `Media.md`, etc.
 
 ### Daily Notes Template
 

@@ -1,1 +1,1 @@
-/Users/keithperez/projects/quartz/CLAUDE.md
+/Users/keithperez/ghq/github.com/keithdperez/keithdperez.com/CLAUDE.md

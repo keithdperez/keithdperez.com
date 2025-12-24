@@ -1,7 +1,9 @@
 ---
 title: Keith Perez
+publish: true
 ---
-I'm a husband, father, worship leader, and designer based in Illinois. I write about faith, masculinity, marriage, and becoming the kind of man worth following.
+
+I'm a husband, father, worship leader, and designer based in Chicagoland. I write about faith, masculinity, marriage, and becoming the kind of man worth following.
 
 ---
 

@@ -27,6 +27,12 @@ Nav.css = `
 .site-nav a:hover {
   color: var(--darkgray);
 }
+
+@media (max-width: 600px) {
+  .site-nav {
+    display: none;
+  }
+}
 `
 
 export default (() => Nav) satisfies QuartzComponentConstructor
