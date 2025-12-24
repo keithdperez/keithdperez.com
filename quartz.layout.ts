@@ -14,8 +14,35 @@ export const sharedPageComponents: SharedLayout = {
   ],
   afterBody: [
     Component.ConditionalRender({
-      component: Component.PostsByDate({ title: "Writing", showYear: true }),
+      component: Component.PostsByDate({ title: "Writing", limit: 11 }),
       condition: (props) => props.fileData.slug === "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.PostsByDate({
+        title: "Writing",
+        showLatest: false,
+        tag: "writing",
+        viewAllSlug: undefined,
+      }),
+      condition: (props) => props.fileData.slug === "Writing",
+    }),
+    Component.ConditionalRender({
+      component: Component.PostsByDate({
+        title: "Resources",
+        showLatest: false,
+        tag: "resources",
+        viewAllSlug: undefined,
+      }),
+      condition: (props) => props.fileData.slug === "Resources",
+    }),
+    Component.ConditionalRender({
+      component: Component.PostsByDate({
+        title: "Projects",
+        showLatest: false,
+        tag: "projects",
+        viewAllSlug: undefined,
+      }),
+      condition: (props) => props.fileData.slug === "work",
     }),
     Component.LinkedMentions(),
     Component.Search(),

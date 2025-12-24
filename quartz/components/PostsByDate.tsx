@@ -3,6 +3,7 @@ import { getDate } from "./Date"
 import { resolveRelative } from "../util/path"
 import { classNames } from "../util/lang"
 import { GlobalConfiguration } from "../cfg"
+import { QuartzPluginData } from "../plugins/vfile"
 import style from "./styles/postsByDate.scss"
 
 interface Options {
@@ -10,6 +11,8 @@ interface Options {
   showLatest?: boolean
   limit?: number
   filter?: (f: QuartzPluginData) => boolean
+  viewAllSlug?: string
+  tag?: string
 }
 
 const defaultOptions = (cfg: GlobalConfiguration): Options => ({
@@ -17,6 +20,7 @@ const defaultOptions = (cfg: GlobalConfiguration): Options => ({
   showLatest: true,
   limit: undefined,
   filter: (f) => f.dates !== undefined && !f.frontmatter?.draft,
+  viewAllSlug: "Writing",
 })
 
 function formatCompactDate(date: Date): string {
@@ -35,7 +39,15 @@ export default ((userOpts?: Partial<Options>) => {
     const opts = { ...defaultOptions(cfg), ...userOpts }
 
     // Filter posts
-    let posts = allFiles.filter(opts.filter ?? defaultOptions(cfg).filter!)
+    const baseFilter = opts.filter ?? defaultOptions(cfg).filter!
+    const tagFilter = (f: QuartzPluginData) => {
+      if (!opts.tag) return true
+      const tags = f.frontmatter?.tags
+      if (!tags) return false
+      return tags.some((t) => t.toLowerCase() === opts.tag?.toLowerCase())
+    }
+
+    let posts = allFiles.filter((f) => baseFilter(f) && tagFilter(f))
 
     // Sort by date descending (newest first)
     posts.sort((a, b) => {
@@ -93,6 +105,11 @@ export default ((userOpts?: Partial<Options>) => {
               )
             })}
           </ul>
+          {opts.viewAllSlug && (
+            <div class="posts-view-all">
+              <a href={resolveRelative(fileData.slug!, opts.viewAllSlug)}>View all →</a>
+            </div>
+          )}
         </div>
       </div>
     )
