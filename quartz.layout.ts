@@ -2,10 +2,16 @@ import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
 // components shared across all pages
-// Simplified layout inspired by stephango.com - navigation at top
+// Simplified layout inspired by stephango.com - breadcrumb navigation
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [Component.PageTitle(), Component.Nav(), Component.Darkmode()],
+  header: [
+    Component.PageTitle(),
+    Component.Breadcrumbs({ spacerSymbol: "/", rootName: "", showCurrentPage: false }),
+    Component.Spacer(),
+    Component.Nav(),
+    Component.Darkmode(),
+  ],
   afterBody: [Component.LinkedMentions(), Component.Search()],
   footer: Component.Footer({
     heading: "",
