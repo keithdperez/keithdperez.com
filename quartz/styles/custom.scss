@@ -178,6 +178,11 @@ h4 {
   margin-top: 1em;
 }
 
+// Hide the first in-body H1 to avoid duplicating the page title
+.page article > h1:first-of-type {
+  display: none;
+}
+
 // Article title styling (the main page title)
 .article-title {
   font-weight: 500;
