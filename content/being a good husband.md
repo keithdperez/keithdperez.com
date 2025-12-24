@@ -1,6 +1,0 @@
----
-tags:
-  - writing
-publish: true
----
-

@@ -1,9 +1,0 @@
----
-publish: false
----
-
-I feel like shit. I want to die. My wife hates me for the actions I don’t do. I have sold myself to enjoy serving others. I have smiled, when I am crying inside. I’ve kept my face hidden, in case others may perceive me to be something they don’t like. To tell the truth would adjust people’s demeanor towards me. I may get attention and a spotlight that I don’t want. Once the spotlight comes on to me, I fear that I would be exposed as a fraud and judged, and I would then receive a stamp of identity that would seal me off past my control. I would be remembered as a piece of shit. When my name is spoken, distaste would come to the mouth.
-
-I find ways to be chosen. I serve my own vision and fun in how I serve others. Everything comes through my lens, and I see how it can be and how it can happen. I orient my life around my own passions, constantly trying new paths — yet never coming to learn a new path. “Ever learning, yet never coming to knowledge of truth.”
-
-I am coming to [[I’m a piece of shit|the end of myself]]. Tear me God. May my anguish be of fragrance to you.
