@@ -12,7 +12,14 @@ export const sharedPageComponents: SharedLayout = {
     Component.Nav(),
     Component.Darkmode(),
   ],
-  afterBody: [Component.LinkedMentions(), Component.Search()],
+  afterBody: [
+    Component.ConditionalRender({
+      component: Component.PostsByDate({ title: "Writing", showYear: true }),
+      condition: (props) => props.fileData.slug === "index",
+    }),
+    Component.LinkedMentions(),
+    Component.Search(),
+  ],
   footer: Component.Footer({
     heading: "",
     description: "Feel free to reach out via email or check out my work",

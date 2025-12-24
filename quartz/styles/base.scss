@@ -82,21 +82,21 @@ strong {
 }
 
 a {
-  font-weight: $semiBoldWeight;
-  text-decoration: none;
+  font-weight: $normalWeight;
+  color: inherit;
+  text-decoration: underline;
   transition: color 0.2s ease;
-  color: var(--secondary);
 
   &:hover {
-    color: var(--tertiary);
+    color: var(--secondary);
   }
 
   &.internal {
-    text-decoration: none;
-    background-color: var(--highlight);
-    padding: 0 0.1rem;
-    border-radius: 5px;
-    line-height: 1.4rem;
+    text-decoration: underline;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    line-height: inherit;
 
     &.broken {
       color: var(--secondary);

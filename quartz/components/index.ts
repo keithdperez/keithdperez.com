@@ -25,6 +25,7 @@ import Flex from "./Flex"
 import ConditionalRender from "./ConditionalRender"
 import Nav from "./Nav"
 import LinkedMentions from "./LinkedMentions"
+import PostsByDate from "./PostsByDate"
 
 export {
   ArticleTitle,
@@ -54,4 +55,5 @@ export {
   ConditionalRender,
   Nav,
   LinkedMentions,
+  PostsByDate,
 }
