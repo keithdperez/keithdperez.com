@@ -9,13 +9,20 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
   // Use absolute path for avatar to work correctly on all pages including 404
   const imagePath = "/static/new-favicon.png"
 
-  // Get the first folder in the path (e.g., "Writing" from "Writing/my-post")
+  // Get the first tag from frontmatter (e.g., "writing" from tags: [writing])
+  const tags = fileData.frontmatter?.tags ?? []
+  const primaryTag = Array.isArray(tags) && tags.length > 0 ? tags[0] : null
+
+  // Fallback to folder-based navigation if no tag
   const slugParts = fileData.slug?.split("/") ?? []
   const firstFolder = slugParts.length > 1 ? slugParts[0] : null
 
-  // Format folder name: capitalize first letter of each word, replace dashes with spaces
-  const formatFolderName = (folder: string) => {
-    return folder
+  // Use tag if available, otherwise use folder
+  const sectionName = primaryTag || firstFolder
+
+  // Format section name: capitalize first letter of each word, replace dashes with spaces
+  const formatSectionName = (name: string) => {
+    return name
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ")
@@ -26,11 +33,11 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
       <a href={baseDir}>
         <img src={imagePath} alt={title} class="page-title-image" />
       </a>
-      {firstFolder && (
+      {sectionName && (
         <>
           <span class="page-title-separator">/</span>
-          <a href={`${baseDir}${firstFolder}/`} class="page-title-section">
-            {formatFolderName(firstFolder)}
+          <a href={`${baseDir}tags/${sectionName}/`} class="page-title-section">
+            {formatSectionName(sectionName)}
           </a>
         </>
       )}
