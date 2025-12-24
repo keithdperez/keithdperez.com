@@ -105,7 +105,7 @@
 
 :root {
   --heading-weight: 500;
-  --line-height: 1.5;
+  --line-height: 1.65;
 }
 
 // Body font improvements to match stephango.com
@@ -150,11 +150,11 @@ h6 {
 
 h1 {
   font-weight: 500;
-  font-size: calc(1.35em + 0.55vw);
+  font-size: calc(1.5em + 0.75vw);
   letter-spacing: -0.02em;
-  line-height: 1.25;
+  line-height: 1.2;
   margin-top: 1.5em;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.4em;
 }
 
 h2 {
@@ -181,31 +181,44 @@ h4 {
 // Article title styling (the main page title)
 .article-title {
   font-weight: 500;
-  font-size: calc(1.35em + 0.55vw);
+  font-size: calc(1.5em + 0.75vw);
   letter-spacing: -0.02em;
-  line-height: 1.25;
-  margin: 0 0 0.25em 0;
+  line-height: 1.2;
+  margin: 0 0 0.4em 0;
 }
 
 // Content meta (date, reading time) styling
 .content-meta {
   color: var(--gray);
+  font-size: 0.9em;
+  font-weight: 400;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 2em;
+  letter-spacing: 0.01em;
 }
 
 // Body text improvements
-p,
-li {
+p {
   line-height: var(--line-height);
+  margin-bottom: 1.25em;
+  margin-top: 0;
 }
 
-// Link styling - less aggressive highlighting, matching stephango
+li {
+  line-height: var(--line-height);
+  margin-bottom: 0.5em;
+}
+
+// Link styling - clear and visible
 a {
   text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  color: var(--secondary);
 
   &:hover {
-    color: var(--secondary);
+    color: var(--tertiary);
+    text-decoration-thickness: 2px;
   }
 }
 
@@ -213,9 +226,10 @@ a.internal {
   background-color: transparent;
   padding: 0;
   border-radius: 0;
+  color: var(--secondary);
 
   &:hover {
-    background-color: var(--highlight);
+    color: var(--tertiary);
   }
 }
 
