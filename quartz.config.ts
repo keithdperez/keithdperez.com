@@ -17,7 +17,7 @@ const config: QuartzConfig = {
     },
     locale: "en-US",
     baseUrl: "keithdperez.com",
-    ignorePatterns: ["private", "templates", ".obsidian", "bible", "daily", "songs"],
+    ignorePatterns: ["private", "templates", ".obsidian", "bible", "daily", "songs", ".claude", "_NoteCompanion"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "local",
