@@ -23,7 +23,7 @@ const config: QuartzConfig = {
       fontOrigin: "local",
       cdnCaching: false,
       typography: {
-        header: "iA Writer Quattro",
+        header: "TAYBarro",
         body: "iA Writer Duo",
         code: "iA Writer Mono",
       },
