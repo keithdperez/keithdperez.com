@@ -13,10 +13,27 @@ export const sharedPageComponents: SharedLayout = {
     Component.Darkmode(),
   ],
   afterBody: [
+    // Latest note (only on index)
     Component.ConditionalRender({
-      component: Component.PostsByDate({ title: "Writing", limit: 11 }),
+      component: Component.PostsByDate({ title: "Latest", limit: 1, showLatest: true }),
       condition: (props) => props.fileData.slug === "index",
     }),
+    // Topics hub (only on index)
+    Component.ConditionalRender({
+      component: Component.TopicsHub(),
+      condition: (props) => props.fileData.slug === "index",
+    }),
+    // My Work (only on index)
+    Component.ConditionalRender({
+      component: Component.PostsByDate({
+        title: "My Work",
+        showLatest: false,
+        tag: "projects",
+        viewAllSlug: undefined,
+      }),
+      condition: (props) => props.fileData.slug === "index",
+    }),
+    // Writing hub page
     Component.ConditionalRender({
       component: Component.PostsByDate({
         title: "Writing",
@@ -26,6 +43,7 @@ export const sharedPageComponents: SharedLayout = {
       }),
       condition: (props) => props.fileData.slug === "Writing",
     }),
+    // Resources hub page
     Component.ConditionalRender({
       component: Component.PostsByDate({
         title: "Resources",
@@ -35,6 +53,7 @@ export const sharedPageComponents: SharedLayout = {
       }),
       condition: (props) => props.fileData.slug === "Resources",
     }),
+    // Projects hub page (on /work)
     Component.ConditionalRender({
       component: Component.PostsByDate({
         title: "Projects",
@@ -61,14 +80,20 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 // Minimal single-column layout like stephango.com
 export const defaultContentPageLayout: PageLayout = {
-  beforeBody: [Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [
+    Component.ArticleTitle(),
+    Component.ConditionalRender({
+      component: Component.ContentMeta(),
+      condition: (props) => props.fileData.slug !== "index",
+    }),
+  ],
   left: [],
   right: [],
 }
 
 // components for pages that display lists of pages (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.ArticleTitle(), Component.ContentMeta()],
+  beforeBody: [Component.ArticleTitle()],
   left: [],
   right: [],
 }

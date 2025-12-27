@@ -26,6 +26,7 @@ import ConditionalRender from "./ConditionalRender"
 import Nav from "./Nav"
 import LinkedMentions from "./LinkedMentions"
 import PostsByDate from "./PostsByDate"
+import TopicsHub from "./TopicsHub"
 
 export {
   ArticleTitle,
@@ -56,4 +57,5 @@ export {
   Nav,
   LinkedMentions,
   PostsByDate,
+  TopicsHub,
 }
