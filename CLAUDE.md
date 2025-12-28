@@ -6,6 +6,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a personal website built with Quartz v4, a static site generator that publishes digital gardens and notes from Markdown files. The site is deployed at keithdperez.com and uses content from an Obsidian vault via symlink at `content/`.
 
+## Design Inspiration
+
+The following digital garden sites serve as design and UX references for this site:
+- [steipete.me](https://steipete.me/) - Peter Steinberger's digital garden
+- [stephango.com](https://stephango.com/) - Stephan Ango's personal site
+- [brandonkboswell.com](https://brandonkboswell.com/) - Brandon Boswell's digital garden
+
+### Design Goals
+Focus on emulating these aspects from the reference sites:
+- **Typography and readability** - Font choices, sizing, line height, optimal reading experience
+- **Layout and navigation** - Clean page structure, intuitive menu design, logical content organization
+- **Minimalist aesthetic** - Clean design, thoughtful whitespace, visual simplicity
+- **Content presentation** - Effective display of notes/articles and their interconnections
+
+### Content Strategy
+The site primarily features:
+- Technical notes and tutorials (programming, development, technical documentation)
+- Personal essays and thoughts (reflections, opinions, personal writing)
+- Knowledge base and reference material (organized reference, research notes, learning)
+
+### Working Preferences
+- **Design changes**: Always describe proposed changes before implementing
+- **Modification scope**: No restrictions - all areas open for improvement
+
 ## Build Commands
 
 ### Development
