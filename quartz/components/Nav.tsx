@@ -30,7 +30,8 @@ Nav.css = `
 
 @media (max-width: 800px) {
   .site-nav {
-    display: none;
+    gap: 1rem;
+    font-size: 0.9em;
   }
 }
 `

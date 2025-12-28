@@ -63,6 +63,8 @@ export const sharedPageComponents: SharedLayout = {
       }),
       condition: (props) => props.fileData.slug === "work",
     }),
+    Component.Graph(),
+    Component.Backlinks(),
     Component.LinkedMentions(),
     Component.Search(),
   ],
