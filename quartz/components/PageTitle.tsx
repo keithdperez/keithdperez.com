@@ -9,16 +9,16 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
   // Use absolute path for avatar to work correctly on all pages including 404
   const imagePath = "/static/new-favicon.png"
 
-  // Get the first tag from frontmatter (e.g., "writing" from tags: [writing])
-  const tags = fileData.frontmatter?.tags ?? []
-  const primaryTag = Array.isArray(tags) && tags.length > 0 ? tags[0] : null
+  // Get the first category from frontmatter (e.g., "projects" from categories: [projects])
+  const categories = fileData.frontmatter?.categories ?? []
+  const primaryCategory = Array.isArray(categories) && categories.length > 0 ? categories[0] : null
 
-  // Fallback to folder-based navigation if no tag
+  // Fallback to folder-based navigation if no category
   const slugParts = fileData.slug?.split("/") ?? []
   const firstFolder = slugParts.length > 1 ? slugParts[0] : null
 
-  // Use tag if available, otherwise use folder
-  const sectionName = primaryTag || firstFolder
+  // Use category if available, otherwise use folder
+  const sectionName = primaryCategory || firstFolder
 
   // Format section name: capitalize first letter of each word, replace dashes with spaces
   const formatSectionName = (name: string) => {
@@ -36,7 +36,7 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
       {sectionName && (
         <>
           <span class="page-title-separator">/</span>
-          <a href={`${baseDir}tags/${sectionName}/`} class="page-title-section">
+          <a href={`${baseDir}categories/${sectionName}/`} class="page-title-section">
             {formatSectionName(sectionName)}
           </a>
         </>

@@ -52,6 +52,14 @@ function getAliasSlugs(aliases: string[]): FullSlug[] {
   return res
 }
 
+// Extract category name from wikilink format: "[[Category Name]]" -> "category-name"
+function parseCategoryFromWikilink(category: string): string {
+  // Remove wikilink brackets if present
+  const cleaned = category.replace(/^\[\[|\]\]$/g, '').trim()
+  // Slugify the category name
+  return slugTag(cleaned)
+}
+
 export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
   const opts = { ...defaultOptions, ...userOpts }
   return {
@@ -79,6 +87,13 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
 
             const tags = coerceToArray(coalesceAliases(data, ["tags", "tag"]))
             if (tags) data.tags = [...new Set(tags.map((tag: string) => slugTag(tag)))]
+
+            const categories = coerceToArray(coalesceAliases(data, ["categories", "category"]))
+            if (categories) {
+              data.categories = [
+                ...new Set(categories.map((cat: string) => parseCategoryFromWikilink(cat)))
+              ]
+            }
 
             const aliases = coerceToArray(coalesceAliases(data, ["aliases", "alias"]))
             if (aliases) {
@@ -139,6 +154,7 @@ declare module "vfile" {
       title: string
     } & Partial<{
         tags: string[]
+        categories: string[]
         aliases: string[]
         modified: string
         created: string
