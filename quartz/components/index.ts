@@ -12,7 +12,7 @@ import ContentMeta from "./ContentMeta"
 import Spacer from "./Spacer"
 import TableOfContents from "./TableOfContents"
 import Explorer from "./Explorer"
-import TagList from "./TagList"
+import CategoryList from "./CategoryList"
 import Graph from "./Graph"
 import Backlinks from "./Backlinks"
 import Search from "./Search"
@@ -27,7 +27,7 @@ import ConditionalRender from "./ConditionalRender"
 import Nav from "./Nav"
 import LinkedMentions from "./LinkedMentions"
 import PostsByDate from "./PostsByDate"
-import TopicsHub from "./TopicsHub"
+import CategoriesHub from "./CategoriesHub"
 
 export {
   ArticleTitle,
@@ -43,7 +43,7 @@ export {
   Spacer,
   TableOfContents,
   Explorer,
-  TagList,
+  CategoryList,
   Graph,
   Backlinks,
   Search,
@@ -59,5 +59,5 @@ export {
   Nav,
   LinkedMentions,
   PostsByDate,
-  TopicsHub,
+  CategoriesHub,
 }

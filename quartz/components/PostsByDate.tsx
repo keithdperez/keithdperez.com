@@ -12,7 +12,7 @@ interface Options {
   limit?: number
   filter?: (f: QuartzPluginData) => boolean
   viewAllSlug?: string
-  tag?: string
+  category?: string
 }
 
 const defaultOptions = (cfg: GlobalConfiguration): Options => ({
@@ -40,14 +40,18 @@ export default ((userOpts?: Partial<Options>) => {
 
     // Filter posts
     const baseFilter = opts.filter ?? defaultOptions(cfg).filter!
-    const tagFilter = (f: QuartzPluginData) => {
-      if (!opts.tag) return true
-      const tags = f.frontmatter?.tags
-      if (!tags) return false
-      return tags.some((t) => t.toLowerCase() === opts.tag?.toLowerCase())
+    const categoryFilter = (f: QuartzPluginData) => {
+      if (!opts.category) return true
+      const categories = f.frontmatter?.categories
+      if (!categories) return false
+      return categories.some((c) => {
+        // Handle wikilink format [[category]] -> category
+        const categoryName = c.replace(/\[\[(.*?)\]\]/, "$1")
+        return categoryName.toLowerCase() === opts.category?.toLowerCase()
+      })
     }
 
-    let posts = allFiles.filter((f) => baseFilter(f) && tagFilter(f))
+    let posts = allFiles.filter((f) => baseFilter(f) && categoryFilter(f))
 
     // Sort by date descending (newest first)
     posts.sort((a, b) => {

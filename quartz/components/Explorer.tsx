@@ -46,7 +46,7 @@ const defaultOptions: Options = {
       return -1
     }
   },
-  filterFn: (node) => node.slugSegment !== "tags",
+  filterFn: (node) => node.slugSegment !== "categories",
   order: ["filter", "map", "sort"],
 }
 

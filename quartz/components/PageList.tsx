@@ -68,7 +68,7 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
     <ul class="section-ul">
       {list.map((page) => {
         const title = page.frontmatter?.title
-        const tags = page.frontmatter?.tags ?? []
+        const categories = page.frontmatter?.categories ?? []
 
         return (
           <li class="section-li">
@@ -83,17 +83,21 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
                   </a>
                 </h3>
               </div>
-              <ul class="tags">
-                {tags.map((tag) => (
-                  <li>
-                    <a
-                      class="internal tag-link"
-                      href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
-                    >
-                      {tag}
-                    </a>
-                  </li>
-                ))}
+              <ul class="categories">
+                {categories.map((category) => {
+                  // Handle wikilink format [[category]] -> category
+                  const categoryName = category.replace(/\[\[(.*?)\]\]/, "$1")
+                  return (
+                    <li>
+                      <a
+                        class="internal category-link"
+                        href={resolveRelative(fileData.slug!, `categories/${categoryName}` as FullSlug)}
+                      >
+                        {categoryName}
+                      </a>
+                    </li>
+                  )
+                })}
               </ul>
             </div>
           </li>
@@ -108,7 +112,7 @@ PageList.css = `
   margin: 0;
 }
 
-.section > .tags {
+.section > .categories {
   margin: 0;
 }
 `

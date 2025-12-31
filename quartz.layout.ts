@@ -10,6 +10,7 @@ export const sharedPageComponents: SharedLayout = {
     Component.Breadcrumbs({ spacerSymbol: "/", rootName: "", showCurrentPage: false }),
     Component.Spacer(),
     Component.Nav(),
+    Component.Search({ iconOnly: true }),
     Component.Darkmode(),
   ],
   afterBody: [
@@ -18,9 +19,9 @@ export const sharedPageComponents: SharedLayout = {
       component: Component.PostsByDate({ title: "Latest", limit: 1, showLatest: true }),
       condition: (props) => props.fileData.slug === "index",
     }),
-    // Topics hub (only on index)
+    // Topics (only on index)
     Component.ConditionalRender({
-      component: Component.TopicsHub(),
+      component: Component.CategoriesHub({ title: "Topics", displayMode: "inline", showCounts: false }),
       condition: (props) => props.fileData.slug === "index",
     }),
     // My Work (only on index)
@@ -28,7 +29,7 @@ export const sharedPageComponents: SharedLayout = {
       component: Component.PostsByDate({
         title: "My Work",
         showLatest: false,
-        tag: "projects",
+        category: "projects",
         viewAllSlug: undefined,
       }),
       condition: (props) => props.fileData.slug === "index",
@@ -38,7 +39,7 @@ export const sharedPageComponents: SharedLayout = {
       component: Component.PostsByDate({
         title: "Writing",
         showLatest: false,
-        tag: "writing",
+        category: "writing",
         viewAllSlug: undefined,
       }),
       condition: (props) => props.fileData.slug === "Writing",
@@ -48,7 +49,7 @@ export const sharedPageComponents: SharedLayout = {
       component: Component.PostsByDate({
         title: "Resources",
         showLatest: false,
-        tag: "resources",
+        category: "guides",
         viewAllSlug: undefined,
       }),
       condition: (props) => props.fileData.slug === "Resources",
@@ -58,15 +59,21 @@ export const sharedPageComponents: SharedLayout = {
       component: Component.PostsByDate({
         title: "Projects",
         showLatest: false,
-        tag: "projects",
+        category: "projects",
         viewAllSlug: undefined,
       }),
       condition: (props) => props.fileData.slug === "work",
     }),
-    Component.Graph(),
-    Component.Backlinks(),
+    Component.Flex({
+      components: [
+        { Component: Component.Graph, grow: true, basis: "45%" },
+        { Component: Component.Backlinks, grow: true, basis: "45%" },
+      ],
+      direction: "row",
+      wrap: "wrap",
+      gap: "2rem",
+    }),
     Component.LinkedMentions(),
-    Component.Search(),
   ],
   footer: Component.Footer({
     heading: "",
