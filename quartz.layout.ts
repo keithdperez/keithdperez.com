@@ -9,7 +9,7 @@ export const sharedPageComponents: SharedLayout = {
     Component.PageTitle(),
     Component.Breadcrumbs({ spacerSymbol: "/", rootName: "", showCurrentPage: false }),
     Component.Spacer(),
-    Component.Nav(),
+    Component.DesktopOnly(Component.Nav()),
     Component.Darkmode(),
   ],
   afterBody: [
