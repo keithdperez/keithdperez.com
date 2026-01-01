@@ -10,7 +10,6 @@ export const sharedPageComponents: SharedLayout = {
     Component.Breadcrumbs({ spacerSymbol: "/", rootName: "", showCurrentPage: false }),
     Component.Spacer(),
     Component.Nav(),
-    Component.Search({ iconOnly: true }),
     Component.Darkmode(),
   ],
   afterBody: [
@@ -74,6 +73,7 @@ export const sharedPageComponents: SharedLayout = {
       gap: "2rem",
     }),
     Component.LinkedMentions(),
+    Component.Search(),
   ],
   footer: Component.Footer({
     heading: "",
