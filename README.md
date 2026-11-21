@@ -16,3 +16,7 @@ Quartz v4 features a from-the-ground rewrite focusing on end-user extensibility 
     <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
   </a>
 </p>
+
+## Astro editorial site
+
+The Astro app lives at the repository root. `npm run dev` starts the preview server; `npm run build` writes a static site to `dist/`; `npm run preview` serves that build. Set `CONTENT_DIR` to an Obsidian content directory (default: `~/vault`). A note is published only when its frontmatter contains `publish: true`. To publish, add that field and a `categories` link such as `"[[writing]]"`, `"[[studies]]"`, or `"[[reflections]]"`; drafts without the true flag are excluded from pages, RSS, and copied media.
