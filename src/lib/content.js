@@ -28,6 +28,18 @@ function slugify(value) {
 }
 function sourceKey(file) { return path.relative(root, file).replace(/\\/g, '/').replace(/\.md$/i, '').toLowerCase(); }
 function titleFor(data, file) { return String(data.title || path.basename(file, '.md')).replace(/\s+/g, ' ').trim(); }
+function formatDate(value) {
+  if (!value) return '';
+  let date;
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const [year, month, day] = value.split('-').map(Number);
+    date = new Date(Date.UTC(year, month - 1, day, 12));
+  } else {
+    date = value instanceof Date ? value : new Date(value);
+  }
+  if (Number.isNaN(date.getTime())) return String(value);
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(date);
+}
 export function getPosts() {
   if (!fs.existsSync(root)) return [];
   const all = list(root).map((file) => { const parsed = matter(fs.readFileSync(file, 'utf8')); return { file, data: parsed.data, body: parsed.content, sourceKey: sourceKey(file), title: titleFor(parsed.data, file) }; });
@@ -59,9 +71,10 @@ export function getPosts() {
     const bannerFile = bannerCandidates.find((candidate) => candidate.startsWith(root + path.sep) && fs.existsSync(candidate) && fs.statSync(candidate).isFile());
     const banner = bannerFile ? `/media/${encodeURIComponent(path.relative(root, bannerFile)).replace(/%2F/g, '/')}` : null;
     const date = post.data.date || post.data.created || post.data.published || '';
+    const formattedDate = formatDate(date);
     const html = render(post.body, index, post.file, root);
     const plain = post.body.replace(/```[\s\S]*?```/g, '').replace(/[#>*_`\[\]]/g, ' ').replace(/\s+/g, ' ').trim();
-    return { ...post, category, banner, date, html, deck: post.data.description || post.data.subtitle || plain.slice(0, 160), words: plain ? plain.split(/\s+/).length : 0 };
+    return { ...post, category, banner, date, formattedDate, html, deck: post.data.description || post.data.subtitle || plain.slice(0, 160), words: plain ? plain.split(/\s+/).length : 0 };
   }).sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function render(source, index, currentFile, contentRoot) {
@@ -82,6 +95,11 @@ function render(source, index, currentFile, contentRoot) {
     const filePath = path.resolve(path.dirname(currentFile || contentRoot), sourcePath);
     return fs.existsSync(filePath) ? `![${alt}](/media/${encodeURIComponent(path.relative(contentRoot, filePath)).replace(/%2F/g, '/')})` : whole;
   });
-  return marked.parse(text);
+  let html = marked.parse(text);
+  const firstParagraph = html.indexOf('<p>');
+  if (firstParagraph !== -1) html = `${html.slice(0, firstParagraph)}${html.slice(firstParagraph).replace('<p>', '<p class="first">')}`;
+  const lastParagraph = html.lastIndexOf('</p>');
+  if (lastParagraph !== -1) html = `${html.slice(0, lastParagraph)}<span class="end" aria-label="End of essay"></span>${html.slice(lastParagraph)}`;
+  return html;
 }
 export function publishablePaths() { return getPosts().map(({ file, slug, title }) => ({ file, slug, title })); }

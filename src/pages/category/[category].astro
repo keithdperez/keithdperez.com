@@ -10,5 +10,5 @@ const { category } = Astro.props; const posts = getPosts().filter((post) => post
 ---
 <Base title={labels[category]}>
 <section class="listing"><span class="kicker" style={`--c:${posts[0]?.category.color || '#b8321e'}`}><i></i>Category</span><h1>{labels[category]}</h1><p class="meta">{posts.length} {posts.length === 1 ? 'piece' : 'pieces'}</p>
-<div class="grid">{posts.map((post) => <a class="card" href={`/essays/${post.slug}/`}>{post.banner ? <div class="img"><img src={post.banner} alt="" /></div> : <div class="cover" style={`--c:${post.category.color}`}><span class="cover-title">{post.title}</span></div>}<span class="kicker" style={`--c:${post.category.color}`}><i></i>{post.category.label}</span><h3>{post.title}</h3><p>{post.deck}</p></a>)}</div></section>
+<div class="grid">{posts.map((post) => <a class="card" href={`/essays/${post.slug}/`}>{post.banner ? <div class="img"><img src={post.banner} alt="" /></div> : <div class="cover" style={`--c:${post.category.color}`}><span class="cover-title">{post.title}</span></div>}<span class="kicker" style={`--c:${post.category.color}`}><i></i>{post.category.label}</span><h3>{post.title}</h3><p>{post.deck}</p>{post.formattedDate && <span class="meta card-date">{post.formattedDate}</span>}</a>)}</div></section>
 </Base>
