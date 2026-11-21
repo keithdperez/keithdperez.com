@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>keithdperez.com — comp</title>
+<link rel="stylesheet" href="rubric-fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500;125,700;100,400;100,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fdfcf9; --paper-2:#f3f0e8; --ink:#1b1a17; --ink-2:#5e5a52; --rule:#e2ddd2;
+  --red:#b8321e;
+  --lapis:#2c4f9e; --verdigris:#2d7766; --orpiment:#b58515; --murex:#7a2f66; --umber:#6e553c;
+  --serif:"Rubric Serif", Georgia, serif;
+  --sans:"Archivo", "Rubric Sans", Helvetica, sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* comp labels */
+.board{font:500 11px/1 var(--sans);font-stretch:100%;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);padding:28px 48px 12px;border-top:1px dashed var(--rule)}
+.board b{color:var(--red);font-weight:700}
+
+/* type tokens */
+.wide{font-family:var(--sans);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.kicker{font:500 11px/1 var(--sans);font-stretch:125%;letter-spacing:.16em;text-transform:uppercase;display:inline-flex;gap:8px;align-items:center}
+.kicker i{width:9px;height:9px;background:var(--c,var(--red));display:inline-block}
+.meta{font:400 13px/1.4 var(--sans);font-stretch:100%;color:var(--ink-2)}
+
+/* masthead */
+.mast{display:flex;justify-content:space-between;align-items:center;padding:22px 48px;border-bottom:1px solid var(--ink)}
+.mast .name{font-size:22px}
+.mast .name span{color:var(--red)}
+.mast nav{display:flex;gap:28px}
+.mast nav a{font:500 12px/1 var(--sans);font-stretch:125%;letter-spacing:.12em;text-transform:uppercase}
+.mast nav a:hover{color:var(--red)}
+
+/* home */
+.hero{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;padding:40px 48px;align-items:end}
+.hero .img{aspect-ratio:16/9;overflow:hidden}
+.hero h2{font:500 56px/1.02 var(--serif);letter-spacing:-.01em;margin:18px 0 16px}
+.hero p.deck{font:italic 400 21px/1.4 var(--serif);color:var(--ink-2);margin-bottom:20px}
+.sec{display:flex;justify-content:space-between;align-items:baseline;margin:16px 48px 0;padding-top:14px;border-top:1px solid var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:24px 48px 64px}
+.card .img{aspect-ratio:4/3;overflow:hidden;margin-bottom:14px}
+.card h3{font:500 24px/1.12 var(--serif);margin:10px 0 8px}
+.card p{font:400 16px/1.4 var(--serif);color:var(--ink-2)}
+.card:hover h3{color:var(--red)}
+/* typographic cover: for the 90% of notes with no banner */
+.cover{aspect-ratio:4/3;margin-bottom:14px;background:var(--c);display:flex;align-items:flex-end;padding:16px;color:var(--paper);
+  font:500 44px/0.95 var(--serif);font-style:italic;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;inset:auto -20% -60% auto;width:90%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.25)}
+
+/* essay */
+.essay-hero{height:560px;overflow:hidden;position:relative}
+.essay-head{max-width:880px;margin:56px auto 0;padding:0 24px;text-align:center}
+.essay-head h1{font:500 76px/1 var(--serif);letter-spacing:-.015em;margin:22px 0 20px}
+.essay-head .deck{font:italic 400 24px/1.4 var(--serif);color:var(--ink-2);max-width:640px;margin:0 auto 28px}
+.byline{display:flex;justify-content:center;gap:22px;padding:14px 0;border-block:1px solid var(--rule);max-width:640px;margin:0 auto}
+.byline b{color:var(--ink);font-weight:500}
+.body{max-width:640px;margin:44px auto 96px;padding:0 24px;font:400 21px/1.6 var(--serif)}
+.body p{margin-bottom:1.1em}
+.body p.first::first-letter{float:left;font:500 5.1em/.8 var(--serif);color:var(--red);padding:.06em .08em 0 0}
+.body h2{font:500 12px/1 var(--sans);font-stretch:125%;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin:2.2em 0 1em}
+.scripture{border-left:2px solid var(--red);padding:2px 0 2px 22px;margin:1.6em 0;font-size:19px;line-height:1.55}
+.scripture sup{color:var(--red);font:700 11px var(--sans);margin-right:4px}
+.scripture .ref{display:block;margin-top:8px;font:500 11px/1 var(--sans);font-stretch:125%;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.pull{margin:1.8em -80px;padding:26px 0;border-block:1px solid var(--ink);font:italic 400 34px/1.2 var(--serif);text-align:center}
+.pull::before{content:"";display:block;width:28px;height:2px;background:var(--red);margin:0 auto 18px}
+.end{display:block;width:10px;height:10px;background:var(--red);margin-top:8px}
+
+/* vault before/after */
+.vault{display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:24px 48px 80px}
+.pane{background:#fdfcf9;border:1px solid var(--rule);padding:40px 44px;font-family:"Rubric Serif",serif}
+.pane .tag{font:500 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin-bottom:22px}
+.pane .props{font:13px/1.8 "Rubric Sans",sans-serif;color:var(--ink-2);background:var(--paper-2);padding:10px 14px;margin:14px 0 22px}
+.pane h1{font:600 34px/1.1 "Rubric Serif",serif}
+.pane p{font-size:17px;line-height:1.6;margin-bottom:.9em}
+.pane.after .kick{font:600 11px/1 "Rubric Sans",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--murex);display:flex;gap:7px;align-items:center;margin-bottom:12px}
+.pane.after .kick i{width:8px;height:8px;background:var(--murex)}
+.pane.after h1{font-weight:500;font-size:40px}
+.pane.after .line{font:13px/1 "Rubric Sans",sans-serif;color:var(--ink-2);padding:10px 0;border-block:1px solid var(--rule);margin:14px 0 22px;display:flex;gap:16px}
+.pane.after p{max-width:34em;font-size:18px;line-height:1.65}
+.pane.after .q{font-style:italic;font-size:24px;line-height:1.25;border-left:2px solid var(--red);padding-left:18px;margin:18px 0}
+.notes{display:flex;gap:24px;flex-wrap:wrap;padding:0 48px 64px}
+.notes div{flex:1 1 200px;border-top:2px solid var(--red);padding-top:10px;font:400 14px/1.4 var(--sans);font-stretch:100%}
+.notes b{display:block;font:500 11px/1 var(--sans);font-stretch:125%;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<div class="board"><b>01</b> keithdperez.com — home</div>
+<header class="mast">
+  <a class="name wide" href="#">Keith D. Perez<span>.</span></a>
+  <nav><a href="#">Reflections</a><a href="#">Studies</a><a href="#">Music</a><a href="#">About</a></nav>
+</header>
+
+<section class="hero">
+  <a class="img" href="#essay"><img src="juniper-in-the-arabah-tv.png" alt=""></a>
+  <div>
+    <span class="kicker" style="--c:var(--lapis)"><i></i>Study</span>
+    <h2>Juniper in the Arabah</h2>
+    <p class="deck">A shrub in the desert, a tree by the stream, and the heart that decides which one you become.</p>
+    <div class="meta">Jeremiah 17:5–10 · 9 min</div>
+  </div>
+</section>
+
+<div class="sec"><span class="kicker">Recent</span><a class="meta" href="#">All writing →</a></div>
+<section class="grid">
+  <a class="card" href="#"><div class="cover" style="--c:var(--murex)">Death<br>→ Life</div>
+    <span class="kicker" style="--c:var(--murex)"><i></i>Reflection</span><h3>Death → Life</h3><p>What has to end before anything can start.</p></a>
+  <a class="card" href="#"><div class="img"><img src="rustic-wooden-building-with-warm-golden-lightin.png" alt=""></div>
+    <span class="kicker" style="--c:var(--verdigris)"><i></i>Essay</span><h3>The weight of integration</h3><p>Becoming the same man in every room.</p></a>
+  <a class="card" href="#"><div class="cover" style="--c:var(--lapis)">Covenant</div>
+    <span class="kicker" style="--c:var(--lapis)"><i></i>Study</span><h3>Covenant and freedom</h3><p>Why the boundary is the gift.</p></a>
+  <a class="card" href="#"><div class="cover" style="--c:var(--verdigris)">Wanting</div>
+    <span class="kicker" style="--c:var(--verdigris)"><i></i>Essay</span><h3>When wanting isn't enough</h3><p>Desire, discipline and the gap between.</p></a>
+</section>
+
+<div class="board" id="essay"><b>02</b> keithdperez.com — essay</div>
+<header class="mast">
+  <a class="name wide" href="#">Keith D. Perez<span>.</span></a>
+  <nav><a href="#">Reflections</a><a href="#">Studies</a><a href="#">Music</a><a href="#">About</a></nav>
+</header>
+<div class="essay-hero"><img src="juniper-in-the-arabah-tv.png" alt=""></div>
+<div class="essay-head">
+  <span class="kicker" style="--c:var(--lapis)"><i></i>Study</span>
+  <h1>Juniper in the Arabah</h1>
+  <p class="deck">A shrub in the desert, a tree by the stream, and the heart that decides which one you become.</p>
+  <div class="byline meta"><span>By <b>Keith D. Perez</b></span><span>2,100 words</span><span>Nov 2026</span></div>
+</div>
+<article class="body">
+  <p class="first">Placeholder body. The column holds about sixty-five characters a line at twenty-one pixels, which is roughly where Aeon sits and where long reading stops feeling like work. The drop cap is the only red in the paragraph; everything you read stays ink.</p>
+  <div class="scripture"><sup>5</sup>Cursed is the one who trusts in man… <sup>6</sup>That person will be like a bush in the wastelands. <sup>8</sup>They will be like a tree planted by the water.<span class="ref">Jeremiah 17:5–8</span></div>
+  <p>Scripture gets the rubric treatment from the vault: a red rule and red verse numbers, so a reader can tell the text from the commentary without a box around it.</p>
+  <h2>The meaning</h2>
+  <p>Section heads are small, wide and red, like Aeon's labels, instead of big bold headings that chop an essay into a manual.</p>
+  <blockquote class="pull">The roots decide what the drought can take.</blockquote>
+  <p>Pull quotes break out of the column on wide screens. The essay ends with a single red square.<span class="end"></span></p>
+</article>
+
+<div class="board"><b>03</b> vault — same Rubric, four small moves (opt-in via <code>cssclasses: essay</code>)</div>
+<section class="vault">
+  <div class="pane">
+    <div class="tag">Now</div>
+    <h1>Death → Life</h1>
+    <div class="props">categories: reflections<br>created: 2026-10-02</div>
+    <p>Notes read at the full pane width, properties sit as a grey box above the text, and headings carry the structure.</p>
+    <p>It works, and it is already handsome. It just reads like a file rather than a piece.</p>
+  </div>
+  <div class="pane after">
+    <div class="tag">With the essay class</div>
+    <div class="kick"><i></i>Reflection</div>
+    <h1>Death → Life</h1>
+    <div class="line"><span>1,240 words</span><span>Oct 2, 2026</span></div>
+    <p>Kicker from the category, in its pigment. Properties fold into one quiet line. The measure narrows to about 65 characters.</p>
+    <div class="q">Callouts of type quote become pull quotes.</div>
+    <p>Nothing changes for notes without the class.</p>
+  </div>
+</section>
+<section class="notes">
+  <div><b>Kicker</b>Category → pigment label above the title. Reuses Rubric's six marks.</div>
+  <div><b>Measure</b>~65ch column, 1.65 leading, a touch larger, for writing only.</div>
+  <div><b>Byline line</b>Properties panel collapses to word count · date.</div>
+  <div><b>Pull quote</b><code>&gt; [!quote]</code> renders italic with a red rule.</div>
+</section>
+</body>
+</html>
