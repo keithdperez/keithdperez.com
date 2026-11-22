@@ -43,10 +43,11 @@ function formatDate(value) {
   if (Number.isNaN(date.getTime())) return String(value);
   return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(date);
 }
+// Live only when Keith has read it and called it his: `publish: true` and `reviewed: true` (Keith, 2026-11-22).
 export function getPosts() {
   if (!fs.existsSync(root)) return [];
   const all = list(root).map((file) => { const parsed = matter(fs.readFileSync(file, 'utf8')); return { file, data: parsed.data, body: parsed.content, sourceKey: sourceKey(file), title: titleFor(parsed.data, file) }; });
-  const published = all.filter((post) => post.data.publish === true && categoryFor(post.data) && !isAboutNote(post));
+  const published = all.filter((post) => post.data.publish === true && post.data.reviewed === true && categoryFor(post.data) && !isAboutNote(post));
   // Sort before assigning suffixes so collisions resolve the same way on every build.
   published.sort((a, b) => {
     const aPath = path.relative(root, a.file).replace(/\\/g, '/');

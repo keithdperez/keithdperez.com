@@ -13,6 +13,13 @@ Rebuild as an Astro editorial site, Aeon-inspired, replacing Quartz. Look: `desi
 category, typographic pigment covers when a note has no banner). Content: only vault notes
 marked for publishing. Everything below describes the Quartz site until the rebuild lands.
 
+## Go-live gate (Keith, 2026-11-22)
+
+An essay goes live only after Keith has read it and called it his: `publish: true` plus
+`reviewed: true` (enforced in `src/lib/content.js`). AI-sounding pieces come back to his voice first by
+talking them through, one at a time (vault `agent/docs/writing-voice.md`). The vault's writing gets its own
+shelf before launch. The deploy workflow is staged on `astro`; pushing and re-enabling Pages need his go-ahead.
+
 ## Build Commands
 
 ### Development
