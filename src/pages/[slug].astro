@@ -1,0 +1,27 @@
+---
+// Root addresses: /<essay>, /<shelf>, and old Quartz addresses that forward.
+import Base from '../layouts/Base.astro';
+import { getPosts, getAbout, categoriesInUse } from '../lib/content.js';
+export function getStaticPaths() {
+  const posts = getPosts();
+  const routes = posts.map((post) => ({ params: { slug: post.slug }, props: { kind: 'essay', post } }));
+  for (const shelf of categoriesInUse()) routes.push({ params: { slug: shelf.name }, props: { kind: 'shelf', shelf, posts: posts.filter((p) => p.category.href === shelf.href) } });
+  const taken = new Set(routes.map((r) => r.params.slug));
+  const forward = (from, to) => { if (from && !from.includes('/') && !taken.has(from)) { taken.add(from); routes.push({ params: { slug: from }, props: { kind: 'redirect', to } }); } };
+  for (const post of posts) forward(post.legacy, `/${post.slug}/`);
+  const about = getAbout(); if (about && about.legacy !== 'about') forward(about.legacy, '/about/');
+  return routes;
+}
+const { kind, post, shelf, posts, to } = Astro.props;
+---
+{kind === 'redirect' && <html lang="en"><head><meta charset="utf-8" /><title>Moved</title><link rel="canonical" href={new URL(to, Astro.site)} /><meta name="robots" content="noindex" /><meta http-equiv="refresh" content={`0; url=${to}`} /></head><body><a href={to}>This page moved.</a></body></html>}
+{kind === 'essay' && <Base title={post.title} description={post.deck} type="article">
+{post.banner && <div class="essay-hero"><img src={post.banner} alt="" /></div>}
+<div class="essay-head"><span class="kicker" style={`--c:${post.category.color}`}><i></i>{post.category.label}</span><h1>{post.title}</h1><p class="deck">{post.deck}</p><div class="byline meta"><span>By <b>Keith D. Perez</b></span><span>{post.words.toLocaleString()} words</span>{post.formattedDate && <span>{post.formattedDate}</span>}</div></div>
+<article class="body" set:html={post.html} />
+<nav class="essay-nav"><a href={post.category.href}>More {post.category.label.toLowerCase()} →</a><a href="/">Home</a></nav>
+</Base>}
+{kind === 'shelf' && <Base title={shelf.label}>
+<section class="listing"><span class="kicker" style={`--c:${shelf.color}`}><i></i>Shelf</span><h1>{shelf.label}</h1><p class="meta">{posts.length} {posts.length === 1 ? 'piece' : 'pieces'}</p>
+<div class="grid">{posts.map((p) => <a class="card" href={`/${p.slug}/`}>{p.banner ? <div class="img"><img src={p.banner} alt="" /></div> : <div class="cover" style={`--c:${p.category.color}`}><span class="cover-title">{p.title}</span></div>}<span class="kicker" style={`--c:${p.category.color}`}><i></i>{p.category.label}</span><h3>{p.title}</h3><p>{p.deck}</p>{p.formattedDate && <span class="meta card-date">{p.formattedDate}</span>}</a>)}</div></section>
+</Base>}

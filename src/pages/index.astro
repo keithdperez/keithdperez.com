@@ -5,11 +5,11 @@ const posts = getPosts(); const lead = posts.find((post) => post.featured) || po
 ---
 <Base>
 {lead ? <section class="hero">
-  <a class="img" href={`/essays/${lead.slug}/`}>{lead.banner ? <img src={lead.banner} alt="" /> : <div class="cover" style={`--c:${lead.category.color}`}><span class="cover-title">{lead.title}</span></div>}</a>
-  <div><span class="kicker" style={`--c:${lead.category.color}`}><i></i>{lead.category.label}</span><h1><a href={`/essays/${lead.slug}/`}>{lead.title}</a></h1><p class="deck">{lead.deck}</p><div class="meta">{lead.formattedDate}{lead.formattedDate && " · "}{lead.words.toLocaleString()} words</div></div>
+  <a class="img" href={`/${lead.slug}/`}>{lead.banner ? <img src={lead.banner} alt="" /> : <div class="cover" style={`--c:${lead.category.color}`}><span class="cover-title">{lead.title}</span></div>}</a>
+  <div><span class="kicker" style={`--c:${lead.category.color}`}><i></i>{lead.category.label}</span><h1><a href={`/${lead.slug}/`}>{lead.title}</a></h1><p class="deck">{lead.deck}</p><div class="meta">{lead.formattedDate}{lead.formattedDate && " · "}{lead.words.toLocaleString()} words</div></div>
 </section> : <section class="hero empty"><div><span class="kicker"><i></i>From the notebook</span><h1>Notes on the examined life.</h1><p class="deck">Essays, studies, and reflections by Keith D. Perez.</p></div></section>}
-<div class="sec"><span class="kicker">Recent</span><a class="meta" href="/category/writing/">All writing →</a></div>
-<section class="grid recent-grid">{recent.map((post) => <a class="card" href={`/essays/${post.slug}/`}>
+<div class="sec"><span class="kicker">Recent</span><a class="meta" href="/writing/">All writing →</a></div>
+<section class="grid recent-grid">{recent.map((post) => <a class="card" href={`/${post.slug}/`}>
   {post.banner ? <div class="img"><img src={post.banner} alt="" /></div> : <div class="cover" style={`--c:${post.category.color}`}><span class="cover-title">{post.title}</span></div>}
   <span class="kicker" style={`--c:${post.category.color}`}><i></i>{post.category.label}</span><h3>{post.title}</h3><p>{post.deck}</p>{post.formattedDate && <span class="meta card-date">{post.formattedDate}</span>}
 </a>)}</section>

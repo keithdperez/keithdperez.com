@@ -29,7 +29,7 @@ const fullTitle = title === 'Keith D. Perez' ? title : `${title} · Keith D. Per
     <header class="mast">
       <a class="name wide" href="/">Keith D. Perez<span>.</span></a>
       <nav aria-label="Main navigation">
-        {shelves.map((c) => <a href={`/category/${c.key}/`}>{c.label}</a>)}<a href="/about/">About</a>
+        {shelves.map((c) => <a href={c.href}>{c.label}</a>)}<a href="/about/">About</a>
       </nav>
     </header>
     <main><slot /></main>

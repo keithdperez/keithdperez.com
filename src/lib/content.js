@@ -14,7 +14,7 @@ const list = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entr
 function categoryFor(data) {
   const raw = Array.isArray(data.categories) ? data.categories.join(' ') : String(data.categories || '');
   const key = raw.match(/\[\[([^\]]+)\]\]|([\w-]+)/)?.[1]?.toLowerCase() || raw.match(/[\w-]+/)?.[0]?.toLowerCase();
-  return categories[key] ? { key, label: categories[key][0], color: categories[key][1] } : null;
+  return categories[key] ? { key, name: key, href: `/${key}/`, label: categories[key][0], color: categories[key][1] } : null;
 }
 function slugify(value) {
   return String(value)
@@ -26,6 +26,8 @@ function slugify(value) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '') || 'note';
 }
+export const RESERVED = ['about', 'writing', 'studies', 'reflections', 'music', 'downloads', 'media', 'fonts', 'rss.xml', '404', 'index'];
+const SLUG_RULE = /^[a-z0-9]+(-[a-z0-9]+)?$/;
 function isAboutNote(post) { return path.basename(post.file, '.md').toLowerCase() === 'about' || post.title.toLowerCase() === 'about'; }
 // Old Quartz addresses: vault path with spaces as hyphens, case and apostrophes kept.
 export function quartzSlug(file) { return path.relative(root, file).replace(/\\/g, '/').replace(/\.md$/i, '').replace(/\s/g, '-').replace(/&/g, '-and-').replace(/%/g, '-percent').replace(/[?#]/g, ''); }
@@ -47,20 +49,23 @@ function formatDate(value) {
 export function getPosts() {
   if (!fs.existsSync(root)) return [];
   const all = list(root).map((file) => { const parsed = matter(fs.readFileSync(file, 'utf8')); return { file, data: parsed.data, body: parsed.content, sourceKey: sourceKey(file), title: titleFor(parsed.data, file) }; });
-  const published = all.filter((post) => post.data.publish === true && post.data.reviewed === true && categoryFor(post.data) && !isAboutNote(post));
+  const published = all.filter((post) => post.data.publish === true && (post.data.reviewed === true || process.env.INCLUDE_UNREVIEWED === '1') && categoryFor(post.data) && !isAboutNote(post));
   // Sort before assigning suffixes so collisions resolve the same way on every build.
   published.sort((a, b) => {
     const aPath = path.relative(root, a.file).replace(/\\/g, '/');
     const bPath = path.relative(root, b.file).replace(/\\/g, '/');
     return aPath < bPath ? -1 : aPath > bPath ? 1 : 0;
   });
-  const usedSlugs = new Set();
+  // Addresses are keithdperez.com/<slug>: one plain word, two at most (Keith, 2026-11-22).
+  // Set `slug:` in the note; once live, a slug never changes.
+  const usedSlugs = new Set(RESERVED);
   for (const post of published) {
-    const base = slugify(post.title);
-    let candidate = base;
-    for (let suffix = 2; usedSlugs.has(candidate); suffix += 1) candidate = `${base}-${suffix}`;
-    post.slug = candidate;
-    usedSlugs.add(candidate);
+    const chosen = post.data.slug ? String(post.data.slug).trim() : '';
+    if (chosen && !SLUG_RULE.test(chosen)) throw new Error(`slug "${chosen}" in ${path.relative(root, post.file)}: use one lowercase word, two at most (e.g. sabbath, inner-court)`);
+    const slug = chosen || slugify(post.title);
+    if (usedSlugs.has(slug)) throw new Error(`slug "${slug}" in ${path.relative(root, post.file)} is taken or reserved; set a different slug:`);
+    post.slug = slug;
+    usedSlugs.add(slug);
   }
   const index = new Map();
   for (const post of published) {
@@ -92,11 +97,12 @@ function render(source, index, currentFile, contentRoot) {
   const resolve = (target) => { const t = target.replace(/\\/g, '/').replace(/\.md$/i, '').toLowerCase(); return index.get(t) || index.get(t.split('/').pop()); };
   text = text.replace(/^[ \t]*[-*][ \t]+\[\[([^\]|#]+)(?:#[^\]|]+)?(?:\|[^\]]+)?\]\][ \t]*$\n?/gm, (line, target) => (resolve(target) ? line : ''));
   text = text.replace(/^(?:---\s*\n+)?See also:\s*\n(?!\s*[-*] )/gm, '');
-  text = text.replace(/\[([^\]]+)\]\((\/(?!essays\/|category\/|about\/|rss\.xml)[^)]*)\)/g, '$1');
+  const known = new Set([...RESERVED, ...[...index.values()].map((p) => p.slug)]);
+  text = text.replace(/\[([^\]]+)\]\(\/([^)\/]*)[^)]*\)/g, (whole, label, first) => (known.has(first.toLowerCase()) ? whole : label));
   text = text.replace(/\[\[([^\]|#]+)(?:#[^\]|]+)?(?:\|([^\]]+))?\]\]/g, (_, target, label) => {
     const normalizedTarget = target.replace(/\\/g, '/').replace(/\.md$/i, '').toLowerCase();
     const key = normalizedTarget.split('/').pop(); const match = index.get(normalizedTarget) || index.get(key);
-    return match ? `[${label || match.title}](/essays/${match.slug}/)` : (label || target.split('/').pop());
+    return match ? `[${label || match.title}](/${match.slug}/)` : (label || target.split('/').pop());
   });
   // Images use vault-relative paths; links to non-Markdown files resolve beside the note.
   text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (whole, alt, sourcePath) => {

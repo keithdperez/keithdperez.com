@@ -13,6 +13,13 @@ Rebuild as an Astro editorial site, Aeon-inspired, replacing Quartz. Look: `desi
 category, typographic pigment covers when a note has no banner). Content: only vault notes
 marked for publishing. Everything below describes the Quartz site until the rebuild lands.
 
+## Addresses (Keith, 2026-11-22)
+
+Writing lives at the root: `keithdperez.com/<slug>`, one plain word, two at most, set as `slug:` in
+the note. A live slug never changes; old Quartz addresses forward. Shelves are `/<category>/`. Files people
+take go under `/downloads/<name>` once the first one exists. The build fails on a bad or reserved slug.
+`INCLUDE_UNREVIEWED=1` previews unapproved notes locally; CI never sets it.
+
 ## Go-live gate (Keith, 2026-11-22)
 
 An essay goes live only after Keith has read it and called it his: `publish: true` plus
