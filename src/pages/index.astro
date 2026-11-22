@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getPosts } from '../lib/content.js';
-const posts = getPosts(); const lead = posts[0]; const recent = posts.slice(1, 5);
+const posts = getPosts(); const lead = posts.find((post) => post.featured) || posts[0]; const recent = posts.filter((post) => post !== lead).slice(0, 4);
 ---
 <Base>
 {lead ? <section class="hero">

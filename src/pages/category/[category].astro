@@ -1,10 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getPosts } from '../../lib/content.js';
+import { getPosts, categoriesInUse } from '../../lib/content.js';
 const labels = { writing: 'Writing', reflections: 'Reflections', studies: 'Studies', music: 'Music' };
 export function getStaticPaths() {
-  const categories = ['writing', 'reflections', 'studies', 'music'];
-  return categories.map((category) => ({ params: { category }, props: { category } }));
+  return categoriesInUse().map(({ key }) => ({ params: { category: key }, props: { category: key } }));
 }
 const { category } = Astro.props; const posts = getPosts().filter((post) => post.category.key === category);
 ---

@@ -1,6 +1,10 @@
 ---
 import '../styles/rubric-fonts.css';
-const { title = 'Keith D. Perez', description = 'Essays, studies, and reflections by Keith D. Perez.' } = Astro.props;
+import { categoriesInUse } from '../lib/content.js';
+const { title = 'Keith D. Perez', description = 'Essays, studies, and reflections by Keith D. Perez.', type = 'website' } = Astro.props;
+const shelves = categoriesInUse();
+const url = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = title === 'Keith D. Perez' ? title : `${title} · Keith D. Perez`;
 ---
 <!doctype html>
 <html lang="en">
@@ -8,7 +12,14 @@ const { title = 'Keith D. Perez', description = 'Essays, studies, and reflection
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <title>{title} · Keith D. Perez</title>
+    <title>{fullTitle}</title>
+    <link rel="canonical" href={url} />
+    <meta property="og:site_name" content="Keith D. Perez" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={url} />
+    <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500;125,700;100,400;100,500&display=swap" rel="stylesheet" />
@@ -18,7 +29,7 @@ const { title = 'Keith D. Perez', description = 'Essays, studies, and reflection
     <header class="mast">
       <a class="name wide" href="/">Keith D. Perez<span>.</span></a>
       <nav aria-label="Main navigation">
-        <a href="/category/reflections/">Reflections</a><a href="/category/studies/">Studies</a><a href="/category/music/">Music</a><a href="/about/">About</a>
+        {shelves.map((c) => <a href={`/category/${c.key}/`}>{c.label}</a>)}<a href="/about/">About</a>
       </nav>
     </header>
     <main><slot /></main>

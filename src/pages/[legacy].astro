@@ -1,0 +1,12 @@
+---
+// Old Quartz addresses (keithdperez.com/<note-name>) forward to the new essay pages.
+import { getPosts, getAbout } from '../lib/content.js';
+export function getStaticPaths() {
+  const routes = getPosts().filter((post) => !post.legacy.includes('/')).map((post) => ({ params: { legacy: post.legacy }, props: { to: `/essays/${post.slug}/` } }));
+  const about = getAbout();
+  if (about && about.legacy !== 'about') routes.push({ params: { legacy: about.legacy }, props: { to: '/about/' } });
+  return routes;
+}
+const { to } = Astro.props;
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8" /><title>Moved</title><link rel="canonical" href={new URL(to, Astro.site)} /><meta name="robots" content="noindex" /><meta http-equiv="refresh" content={`0; url=${to}`} /></head><body><a href={to}>This page moved.</a></body></html>

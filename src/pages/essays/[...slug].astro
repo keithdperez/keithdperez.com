@@ -4,7 +4,7 @@ import { getPosts } from '../../lib/content.js';
 export function getStaticPaths() { return getPosts().map((post) => ({ params: { slug: post.slug }, props: { post } })); }
 const { post } = Astro.props;
 ---
-<Base title={post.title} description={post.deck}>
+<Base title={post.title} description={post.deck} type="article">
 {post.banner && <div class="essay-hero"><img src={post.banner} alt="" /></div>}
 <div class="essay-head"><span class="kicker" style={`--c:${post.category.color}`}><i></i>{post.category.label}</span><h1>{post.title}</h1><p class="deck">{post.deck}</p><div class="byline meta"><span>By <b>Keith D. Perez</b></span><span>{post.words.toLocaleString()} words</span>{post.formattedDate && <span>{post.formattedDate}</span>}</div></div>
 <article class="body" set:html={post.html} />
