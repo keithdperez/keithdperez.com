@@ -45,6 +45,25 @@ function formatDate(value) {
   if (Number.isNaN(date.getTime())) return String(value);
   return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(date);
 }
+// Every piece gives the reader something, or it doesn't go live (Keith, 2026-11-22).
+// `gives:` names it; `gives_link:` is a URL or a vault file, served at /downloads/<name>.
+function resolveGives(post) {
+  const label = post.data.gives ? String(post.data.gives).trim() : '';
+  const raw = post.data.gives_link ? String(post.data.gives_link).trim().replace(/^!?\[\[|\]\]$/g, '').split('|')[0] : '';
+  const where = path.relative(root, post.file);
+  if (!label || !raw) {
+    if (post.data.reviewed === true) throw new Error(`${where} is reviewed but gives nothing: set gives: and gives_link: before it can go live`);
+    return null;
+  }
+  if (/^https?:\/\//.test(raw)) return { label, href: raw, file: null };
+  const candidates = [path.resolve(path.dirname(post.file), raw), path.resolve(root, raw), path.resolve(root, 'attachments', path.basename(raw))];
+  const file = candidates.find((c) => c.startsWith(root + path.sep) && fs.existsSync(c) && fs.statSync(c).isFile());
+  if (!file) { if (post.data.reviewed === true) throw new Error(`${where}: gives_link "${raw}" not found in the vault`); return null; }
+  const ext = path.extname(file).toLowerCase();
+  const name = `${slugify(path.basename(file, ext))}${ext}`;
+  return { label, href: `/downloads/${name}`, file, name };
+}
+export function getDownloads() { return getPosts().filter((p) => p.gives && p.gives.file).map((p) => p.gives); }
 // Live only when Keith has read it and called it his: `publish: true` and `reviewed: true` (Keith, 2026-11-22).
 export function getPosts() {
   if (!fs.existsSync(root)) return [];
@@ -81,10 +100,11 @@ export function getPosts() {
     const banner = bannerFile ? `/media/${encodeURIComponent(path.relative(root, bannerFile)).replace(/%2F/g, '/')}` : null;
     const date = post.data.date || post.data.created || post.data.published || '';
     const legacy = quartzSlug(post.file);
+    const gives = resolveGives(post);
     const formattedDate = formatDate(date);
     const html = render(post.body, index, post.file, root);
     const plain = post.body.replace(/```[\s\S]*?```/g, '').replace(/[#>*_`\[\]]/g, ' ').replace(/\s+/g, ' ').trim();
-    return { ...post, legacy, featured: post.data.featured === true, category, banner, date, formattedDate, html, deck: post.data.description || post.data.subtitle || plain.slice(0, 160), words: plain ? plain.split(/\s+/).length : 0 };
+    return { ...post, legacy, gives, featured: post.data.featured === true, category, banner, date, formattedDate, html, deck: post.data.description || post.data.subtitle || plain.slice(0, 160), words: plain ? plain.split(/\s+/).length : 0 };
   }).sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function render(source, index, currentFile, contentRoot) {

@@ -19,6 +19,7 @@ const { kind, post, shelf, posts, to } = Astro.props;
 {post.banner && <div class="essay-hero"><img src={post.banner} alt="" /></div>}
 <div class="essay-head"><span class="kicker" style={`--c:${post.category.color}`}><i></i>{post.category.label}</span><h1>{post.title}</h1><p class="deck">{post.deck}</p><div class="byline meta"><span>By <b>Keith D. Perez</b></span><span>{post.words.toLocaleString()} words</span>{post.formattedDate && <span>{post.formattedDate}</span>}</div></div>
 <article class="body" set:html={post.html} />
+{post.gives && <aside class="gives"><span class="kicker"><i></i>Take this</span><a href={post.gives.href} download={post.gives.file ? post.gives.name : undefined}>{post.gives.label} →</a></aside>}
 <nav class="essay-nav"><a href={post.category.href}>More {post.category.label.toLowerCase()} →</a><a href="/">Home</a></nav>
 </Base>}
 {kind === 'shelf' && <Base title={shelf.label}>

@@ -20,6 +20,12 @@ the note. A live slug never changes; old Quartz addresses forward. Shelves are `
 take go under `/downloads/<name>` once the first one exists. The build fails on a bad or reserved slug.
 `INCLUDE_UNREVIEWED=1` previews unapproved notes locally; CI never sets it.
 
+## Every essay gives something (Keith, 2026-11-22)
+
+The most important rule: a piece must hand the reader something to use. `gives:` names it and
+`gives_link:` points to a URL or a vault file (served at `/downloads/<name>`). The build fails on a reviewed
+essay without one. Voice and why: vault `agent/docs/writing-voice.md`.
+
 ## Go-live gate (Keith, 2026-11-22)
 
 An essay goes live only after Keith has read it and called it his: `publish: true` plus
