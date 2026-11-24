@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
-import { marked } from 'marked';
+import { Marked } from 'marked';
 
 const root = path.resolve(process.env.CONTENT_DIR || path.join(process.env.HOME || '', 'vault'));
 const ignoredDirs = new Set(['.obsidian', '.claude', '.copilot', '.trash', '.git', '.agents', 'agent', 'attachments', 'references', 'daily', 'conversations', 'archive', 'templates', 'projects', 'resources', 'production', 'church', 'guides', 'bible', 'journal', 'private']);
@@ -55,13 +55,29 @@ function resolveGives(post) {
     if (post.data.reviewed === true) throw new Error(`${where} is reviewed but gives nothing: set gives: and gives_link: before it can go live`);
     return null;
   }
-  if (/^https?:\/\//.test(raw)) return { label, href: raw, file: null };
+  if (/^https?:\/\//.test(raw)) { const s = sourceKind(raw); return { label, href: raw, file: null, kind: s.kind === 'Song' ? 'song' : 'link', meta: s.kind === 'Song' ? `Listen · ${s.host}` : s.host, action: s.kind === 'Song' ? 'Listen' : 'Open' }; }
   const candidates = [path.resolve(path.dirname(post.file), raw), path.resolve(root, raw), path.resolve(root, 'attachments', path.basename(raw))];
   const file = candidates.find((c) => c.startsWith(root + path.sep) && fs.existsSync(c) && fs.statSync(c).isFile());
   if (!file) { if (post.data.reviewed === true) throw new Error(`${where}: gives_link "${raw}" not found in the vault`); return null; }
   const ext = path.extname(file).toLowerCase();
   const name = `${slugify(path.basename(file, ext))}${ext}`;
-  return { label, href: `/downloads/${name}`, file, name };
+  const kb = Math.max(1, Math.round(fs.statSync(file).size / 1024));
+  const size = kb >= 1024 ? `${(kb / 1024).toFixed(1)} MB` : `${kb} KB`;
+  return { label, href: `/downloads/${name}`, file, name, kind: 'download', meta: `${ext.slice(1).toUpperCase()} · ${size}`, action: 'Download' };
+}
+// Where a link points, said plainly: the margin names the kind of source (Keith is a curator, not an authority).
+const SOURCE_HOSTS = [
+  [/biblegateway|bible\.com|esv\.org|biblehub|blueletterbible/, 'Scripture'],
+  [/bookshop|macmillan|amazon|goodreads|penguinrandomhouse|harpercollins|ivpress|zondervan|bakerbookhouse/, 'Book'],
+  [/spotify|music\.apple|bandcamp|soundcloud|tidal|music\.youtube/, 'Song'],
+  [/youtube|youtu\.be|vimeo/, 'Video'],
+  [/podcasts\.apple|overcast|pca\.st/, 'Podcast'],
+];
+function sourceKind(href) {
+  let host = '';
+  try { host = new URL(href).hostname.replace(/^www\./, ''); } catch { return { kind: 'Link', host: href }; }
+  const hit = SOURCE_HOSTS.find(([re]) => re.test(host));
+  return { kind: hit ? hit[1] : 'Link', host };
 }
 export function getDownloads() { return getPosts().filter((p) => p.gives && p.gives.file).map((p) => p.gives); }
 // Live only when Keith has read it and called it his: `publish: true` and `reviewed: true` (Keith, 2026-11-22).
@@ -102,10 +118,11 @@ export function getPosts() {
     const legacy = quartzSlug(post.file);
     const gives = resolveGives(post);
     const formattedDate = formatDate(date);
-    const html = render(post.body, index, post.file, root);
+    const { html, sources } = render(post.body, index, post.file, root);
     const plain = post.body.replace(/```[\s\S]*?```/g, '').replace(/[#>*_`\[\]]/g, ' ').replace(/\s+/g, ' ').trim();
-    return { ...post, legacy, gives, featured: post.data.featured === true, category, banner, date, formattedDate, html, deck: post.data.description || post.data.subtitle || plain.slice(0, 160), words: plain ? plain.split(/\s+/).length : 0 };
-  }).sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    return { ...post, legacy, gives, featured: post.data.featured === true, category, banner, date, formattedDate, html, sources, deck: post.data.description || post.data.subtitle || plain.slice(0, 160), words: plain ? plain.split(/\s+/).length : 0 };
+  }).sort((a, b) => String(b.date).localeCompare(String(a.date)) || a.title.localeCompare(b.title))
+    .map((post, i, all) => ({ ...post, number: all.length - i }));
 }
 function render(source, index, currentFile, contentRoot) {
   let text = source.replace(/```bible\s*\n([\s\S]*?)```/g, (_, block) => {
@@ -113,6 +130,12 @@ function render(source, index, currentFile, contentRoot) {
     const verses = lines.map((line) => line.replace(/^\s*(\d+)\s+/, '<sup>$1</sup>')).join(' ');
     return `<div class="scripture">${verses}<span class="ref">${ref.replace(/^\[\[|\]\]$/g, '')}</span></div>`;
   });
+  // Obsidian's verse plugin fetches text at read time; the site never invents a quote, so it points to the passage.
+  text = text.replace(/```mybible\s*\n([\s\S]*?)```/g, (_, block) => block.replace(/>?\s*\[verse="([^"]+)"\]/g, (__, raw) => {
+    const m = raw.trim().match(/^(.*?)(?:\s+([A-Z]{2,6}))?$/); const ref = m[1]; const version = m[2] || 'ESV';
+    const href = `https://www.biblegateway.com/passage/?search=${encodeURIComponent(ref)}&version=${version}`;
+    return `<p class="scripture passage"><a href="${href}">Read ${ref.replace(/-/g, '–')}</a><span class="ref">${version}</span></p>`;
+  }));
   text = text.replace(/^>\s*\[!quote\]\s*\n((?:>.*\n?)*)/gm, (_, quote) => `\n<div class="pull">${quote.split('\n').map((line) => line.replace(/^>\s?/, '')).join(' ')}</div>\n`);
   const resolve = (target) => { const t = target.replace(/\\/g, '/').replace(/\.md$/i, '').toLowerCase(); return index.get(t) || index.get(t.split('/').pop()); };
   text = text.replace(/^[ \t]*[-*][ \t]+\[\[([^\]|#]+)(?:#[^\]|]+)?(?:\|[^\]]+)?\]\][ \t]*$\n?/gm, (line, target) => (resolve(target) ? line : ''));
@@ -130,12 +153,26 @@ function render(source, index, currentFile, contentRoot) {
     const filePath = path.resolve(path.dirname(currentFile || contentRoot), sourcePath);
     return fs.existsSync(filePath) ? `![${alt}](/media/${encodeURIComponent(path.relative(contentRoot, filePath)).replace(/%2F/g, '/')})` : whole;
   });
-  let html = marked.parse(text);
+  // Outside links become numbered sources: a note in the margin on wide screens, a list at the end everywhere.
+  const sources = [];
+  const md = new Marked({ renderer: { link({ href, title, tokens }) {
+    const label = this.parser.parseInline(tokens);
+    if (!/^https?:\/\//.test(href)) return `<a href="${href}"${title ? ` title="${title}"` : ''}>${label}</a>`;
+    const { kind, host } = sourceKind(href);
+    const n = sources.push({ n: sources.length + 1, href, label: label.replace(/<[^>]+>/g, ''), kind, host });
+    return `<a class="src" href="${href}">${label}</a><sup class="n" aria-hidden="true">${n}</sup><span class="side" aria-hidden="true"><b>${n}</b><span class="kind">${kind}</span><a href="${href}" tabindex="-1">${label.replace(/<[^>]+>/g, '')}</a></span>`;
+  } } });
+  let html = md.parse(text);
   const firstParagraph = html.indexOf('<p>');
-  if (firstParagraph !== -1) html = `${html.slice(0, firstParagraph)}${html.slice(firstParagraph).replace('<p>', '<p class="first">')}`;
+  if (firstParagraph !== -1) {
+    const close = html.indexOf('</p>', firstParagraph);
+    const firstText = html.slice(firstParagraph, close).replace(/<[^>]+>/g, '');
+    // A drop cap needs a paragraph to drop into.
+    if (firstText.length > 140) html = `${html.slice(0, firstParagraph)}${html.slice(firstParagraph).replace('<p>', '<p class="first">')}`;
+  }
   const lastParagraph = html.lastIndexOf('</p>');
-  if (lastParagraph !== -1) html = `${html.slice(0, lastParagraph)}<span class="end" aria-label="End of essay"></span>${html.slice(lastParagraph)}`;
-  return html;
+  if (lastParagraph !== -1) html = `${html.slice(0, lastParagraph)}<span class="end" role="img" aria-label="End"></span>${html.slice(lastParagraph)}`;
+  return { html, sources };
 }
 export function getAbout() {
   const file = path.join(root, 'about.md');
@@ -143,7 +180,8 @@ export function getAbout() {
   const parsed = matter(fs.readFileSync(file, 'utf8'));
   if (parsed.data.publish !== true) return null;
   const index = new Map(getPosts().map((post) => [post.title.toLowerCase(), post]));
-  return { html: render(parsed.content, index, file, root).replace('<span class="end" aria-label="End of essay"></span>', ''), file, legacy: quartzSlug(file) };
+  const { html, sources } = render(parsed.content, index, file, root);
+  return { html: html.replace('<span class="end" role="img" aria-label="End"></span>', ''), sources, file, legacy: quartzSlug(file), tagline: parsed.data.tagline ? String(parsed.data.tagline) : (parsed.content.trim().split(/(?<=[.!?])\s/)[0] || '') };
 }
 export function categoriesInUse() { const seen = new Map(); for (const post of getPosts()) seen.set(post.category.key, post.category); return [...seen.values()]; }
 export function publishablePaths() { return getPosts().map(({ file, slug, title }) => ({ file, slug, title })); }

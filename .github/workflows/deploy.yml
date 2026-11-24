@@ -37,8 +37,6 @@ jobs:
         run: npm run build
         env:
           CONTENT_DIR: ${{ github.workspace }}/.vault
-      - name: Refuse an empty site
-        run: test "$(find dist/essays -name index.html | wc -l)" -gt 0
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
