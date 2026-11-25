@@ -3,4 +3,4 @@ import Base from '../layouts/Base.astro';
 import { getAbout } from '../lib/content.js';
 const about = getAbout();
 ---
-<Base title="About" description="Who Keith D. Perez is and what he writes about."><article class="essay about"><header class="essay-head"><h1>About</h1></header>{about ? <div class="body" set:html={about.html} /> : <div class="body"><p>I'm Keith Perez, and this is where I think out loud.</p></div>}</article></Base>
+<Base title="About" description="Keith D. Perez on faith, formation, and the examined life."><article class="about"><span class="kicker"><i></i>About</span><h1>Keith D. Perez</h1>{about ? <div set:html={about.html} /> : <p>I write about faith, formation, and the examined life.</p>}</article></Base>

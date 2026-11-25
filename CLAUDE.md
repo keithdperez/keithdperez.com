@@ -6,14 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a personal website built with Quartz v4, a static site generator that publishes digital gardens and notes from Markdown files. The site is deployed at keithdperez.com and uses content from an Obsidian vault via symlink at `content/`.
 
-## Direction (Keith, 2026-11-21; restructured 2026-11-24)
+## Direction (Keith, 2026-11-21; gift UI 2026-11-24)
 
-Astro editorial site replacing Quartz, built from the vault's Rubric materials: Alegreya, one red `#b8321e`,
-one pigment per category. 2026-11-24 (after an impeccable critique): structure is "Rubric", a liturgical book,
-not the Aeon magazine. Home is a numbered contents page with each piece's gift on its row; essays promise the
-gift under the title and hand it over at the end; outside links become numbered sources in the margin. The
-reader's goal is the gift. Contract: the HTML comment at the top of `src/layouts/Base.astro`. The production
-build fails while no essay is live (hold the deploy). Content: only vault notes marked for publishing.
+Astro editorial site replacing Quartz. Look: `design/comp.html` (Aeon structure; the vault's Rubric materials:
+Alegreya, one red `#b8321e`, one pigment per category, typographic pigment covers when a note has no banner).
+2026-11-24: Keith tried a hymnal-contents restructure and kept the original look; only the gift UI stays (promise
+under the byline, Take-this panel with a Download button and file type/size, gift line on cards). The reader's
+goal is the gift. The production build fails while no essay is live. Content: only vault notes marked for publishing.
 Everything below the go-live sections describes the old Quartz site.
 
 ## Addresses (Keith, 2026-11-22)
