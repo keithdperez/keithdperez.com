@@ -1,19 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
-import Icon from '../components/Icon.astro';
-import { getPosts } from '../lib/content.js';
+import Contents from '../components/Contents.astro';
+import { getPosts, getAbout } from '../lib/content.js';
 const posts = getPosts();
 // Hold the deploy until something is live (Keith, 2026-11-24): an empty production site never ships.
-if (import.meta.env.PROD && posts.length === 0 && process.env.INCLUDE_UNREVIEWED !== '1') throw new Error('No live essays: mark at least one note publish: true and reviewed: true before building for production.'); const lead = posts.find((post) => post.featured) || posts[0]; const recent = posts.filter((post) => post !== lead).slice(0, 4);
+if (import.meta.env.PROD && posts.length === 0 && process.env.INCLUDE_UNREVIEWED !== '1') {
+  throw new Error('No live essays: mark at least one note publish: true and reviewed: true before building for production.');
+}
+const about = getAbout();
+const tagline = about?.tagline || "I'm Keith Perez, and this is where I think out loud.";
 ---
 <Base>
-{lead ? <section class="hero">
-  <a class="img" href={`/${lead.slug}/`}>{lead.banner ? <img src={lead.banner} alt="" /> : <div class="cover" style={`--c:${lead.category.color}`}><span class="cover-title">{lead.title}</span></div>}</a>
-  <div><span class="kicker" style={`--c:${lead.category.color}`}><i></i>{lead.category.label}</span><h1><a href={`/${lead.slug}/`}>{lead.title}</a></h1><p class="deck">{lead.deck}</p><div class="meta">{lead.formattedDate}{lead.formattedDate && " · "}{lead.words.toLocaleString()} words</div>{lead.gives && <a class="card-gift" href={lead.gives.href} download={lead.gives.file ? lead.gives.name : undefined}><Icon name={lead.gives.kind} size={14} />{lead.gives.label}<span class="meta">{lead.gives.meta}</span></a>}</div>
-</section> : <section class="hero empty"><div><span class="kicker"><i></i>From the notebook</span><h1>Notes on the examined life.</h1><p class="deck">Essays, studies, and reflections by Keith D. Perez.</p></div></section>}
-<div class="sec"><span class="kicker">Recent</span><a class="meta" href="/writing/">All writing →</a></div>
-<section class="grid recent-grid">{recent.map((post) => <a class="card" href={`/${post.slug}/`}>
-  {post.banner ? <div class="img"><img src={post.banner} alt="" /></div> : <div class="cover" style={`--c:${post.category.color}`}><span class="cover-title">{post.title}</span></div>}
-  <span class="kicker" style={`--c:${post.category.color}`}><i></i>{post.category.label}</span><h3>{post.title}</h3><p>{post.deck}</p>{post.gives && <span class="card-gift"><Icon name={post.gives.kind} size={14} />{post.gives.label}</span>}{post.formattedDate && <span class="meta card-date">{post.formattedDate}</span>}
-</a>)}</section>
+  <section class="intro">
+    <h1>{tagline}</h1>
+    <p class="intro-links"><a href="/about/">More about me <span aria-hidden="true">→</span></a></p>
+  </section>
+  <section class="toc" aria-labelledby="toc-h">
+    <h2 id="toc-h" class="label">Contents</h2>
+    <Contents posts={posts} />
+  </section>
 </Base>

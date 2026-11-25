@@ -157,8 +157,10 @@ function render(source, index, currentFile, contentRoot) {
   const sources = [];
   const md = new Marked({ renderer: { link({ href, title, tokens }) {
     const label = this.parser.parseInline(tokens);
-    if (/^https?:\/\//.test(href)) { const { kind, host } = sourceKind(href); sources.push({ n: sources.length + 1, href, label: label.replace(/<[^>]+>/g, ''), kind, host }); }
-    return `<a href="${href}"${title ? ` title="${title}"` : ''}>${label}</a>`;
+    if (!/^https?:\/\//.test(href)) return `<a href="${href}"${title ? ` title="${title}"` : ''}>${label}</a>`;
+    const { kind, host } = sourceKind(href);
+    const n = sources.push({ n: sources.length + 1, href, label: label.replace(/<[^>]+>/g, ''), kind, host });
+    return `<a class="src" href="${href}">${label}</a><sup class="n" aria-hidden="true">${n}</sup><span class="side" aria-hidden="true"><b>${n}</b><span class="kind">${kind}</span><a href="${href}" tabindex="-1">${label.replace(/<[^>]+>/g, '')}</a></span>`;
   } } });
   let html = md.parse(text);
   const firstParagraph = html.indexOf('<p>');

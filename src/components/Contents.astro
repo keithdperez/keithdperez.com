@@ -1,0 +1,23 @@
+---
+// A hymnal's contents page: a number you can find again, the title, one line, and what the piece gives.
+import Icon from './Icon.astro';
+const { posts, showShelf = true } = Astro.props;
+---
+<ol class="contents" role="list">
+  {posts.map((p) => (
+    <li class="entry">
+      <span class="no" aria-hidden="true">{p.number}</span>
+      <div class="entry-text">
+        <h3><a class="entry-link" href={`/${p.slug}/`}>{p.title}</a></h3>
+        <p class="entry-deck">{p.deck}</p>
+        <p class="entry-meta">{showShelf && <span class="shelf" style={`--c:${p.category.color}`}>{p.category.label}</span>}{p.formattedDate && <span>{p.formattedDate}</span>}</p>
+      </div>
+      {p.gives ? (
+        <a class="entry-gift" href={p.gives.href} download={p.gives.file ? p.gives.name : undefined}>
+          <Icon name={p.gives.kind} />
+          <span><span class="gift-label">{p.gives.label}</span><span class="gift-meta">{p.gives.meta}</span></span>
+        </a>
+      ) : <span class="entry-gift empty" aria-hidden="true"></span>}
+    </li>
+  ))}
+</ol>
