@@ -1,13 +1,8 @@
 ---
 import '../styles/rubric-fonts.css';
-import '../styles/site.css';
-const { title = 'Keith D. Perez', description = 'Essays, studies, and reflections by Keith D. Perez.', type = 'website', image = null } = Astro.props;
-const here = Astro.url.pathname;
-const url = new URL(here, Astro.site);
+const { title = 'Keith D. Perez', description = 'Essays, studies, and reflections by Keith D. Perez.', type = 'website' } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title === 'Keith D. Perez' ? title : `${title} · Keith D. Perez`;
-// Shares always carry a picture: the essay's banner, or the site card.
-const ogImage = new URL(image || '/og.png', Astro.site);
-const current = (href) => (here === href ? 'page' : undefined);
 ---
 <!doctype html>
 <html lang="en">
@@ -15,38 +10,37 @@ const current = (href) => (here === href ? 'page' : undefined);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#fdfcf9" />
     <title>{fullTitle}</title>
     <link rel="canonical" href={url} />
-    <link rel="preload" href="/fonts/rubric-serif-normal-400-900.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <meta property="og:site_name" content="Keith D. Perez" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={type} />
     <meta property="og:url" content={url} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={new URL(Astro.props.image || '/og.png', Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500;125,700;100,400;100,500&display=swap" rel="stylesheet" />
     <link rel="alternate" type="application/rss+xml" title="Keith D. Perez" href="/rss.xml" />
   </head>
   <body>
-    <Fragment set:html={`<!-- Direction (Keith, 2026-11-24): "Rubric". A liturgical book, not a magazine.
-  World: Aeon-born materials kept — Alegreya (Rubric Serif), wide Archivo caps, one red #b8321e, paper #fdfcf9.
-  Home: a hymnal contents page; each row is number, title, one line, and the gift it hands you.
-  Essay: the gift is promised under the title and handed over at the end; outside links are numbered sources in the margin.
-  Rules: no eyebrows, no cards, no pigment covers; red marks only what the reader can act on or find again. -->`} />
-    <a class="skip" href="#main">Skip to the writing</a>
     <header class="mast">
-      <a class="name" href="/" aria-current={current('/')}>Keith D. Perez<span>.</span></a>
-      <nav aria-label="Main">
-        <a href="/" aria-current={current('/')}>Contents</a>
-        <a href="/about/" aria-current={current('/about/')}>About</a>
+      <a class="name wide" href="/">Keith D. Perez<span>.</span></a>
+      <nav aria-label="Main navigation">
+        <a href="/writing/">Writing</a><a href="/about/">About</a>
       </nav>
     </header>
-    <main id="main"><slot /></main>
-    <footer class="foot">
-      <a href="/">Keith D. Perez</a>
-      <a href="/rss.xml">RSS</a>
-    </footer>
+    <main><slot /></main>
+    <footer><a href="/">Keith D. Perez</a><span>Essays on faith, formation, and the examined life.</span><a href="/rss.xml">RSS</a></footer>
   </body>
 </html>
+<style is:global>
+@font-face{font-family:Archivo;src:local("Archivo")} :root{--paper:#fdfcf9;--paper-2:#f3f0e8;--ink:#1b1a17;--ink-2:#5e5a52;--rule:#e2ddd2;--red:#b8321e;--lapis:#2c4f9e;--verdigris:#2d7766;--orpiment:#b58515;--murex:#7a2f66;--serif:"Rubric Serif",Georgia,serif;--sans:"Archivo","Rubric Sans",Helvetica,sans-serif}*{box-sizing:border-box}html{background:var(--paper)}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}img{display:block;width:100%;height:100%;object-fit:cover}.wide{font-family:var(--sans);font-stretch:125%;font-weight:700;text-transform:uppercase;letter-spacing:.06em}.kicker{font:500 11px/1 var(--sans);font-stretch:125%;letter-spacing:.16em;text-transform:uppercase;display:inline-flex;gap:8px;align-items:center}.kicker i{width:9px;height:9px;background:var(--c,var(--red));display:inline-block}.meta{font:400 13px/1.4 var(--sans);color:var(--ink-2)}.mast{display:flex;justify-content:space-between;align-items:center;padding:22px 48px;border-bottom:1px solid var(--ink)}.mast .name{font-size:22px}.mast .name span{color:var(--red)}.mast nav{display:flex;gap:28px}.mast nav a{font:500 12px/1 var(--sans);font-stretch:125%;letter-spacing:.12em;text-transform:uppercase}.mast nav a:hover{color:var(--red)}footer{border-top:1px solid var(--ink);padding:24px 48px;display:flex;justify-content:space-between;gap:20px;font:12px var(--sans);color:var(--ink-2)}footer a:first-child{font-weight:700;color:var(--ink)}
+.hero{display:grid;grid-template-columns:1.6fr 1fr;gap:40px;padding:40px 48px;align-items:end}.hero .img{aspect-ratio:16/9;overflow:hidden}.hero .cover{height:100%;aspect-ratio:auto;margin-bottom:0}.hero h1,.hero h2{font:500 56px/1.02 var(--serif);letter-spacing:-.01em;margin:18px 0 16px}.deck{font:italic 400 21px/1.4 var(--serif);color:var(--ink-2);margin:0 0 20px}.sec{display:flex;justify-content:space-between;align-items:baseline;margin:16px 48px 0;padding-top:14px;border-top:1px solid var(--ink)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding:24px 48px 64px}.card .img,.cover{aspect-ratio:4/3;overflow:hidden;margin-bottom:14px}.card h3{font:500 24px/1.12 var(--serif);margin:10px 0 8px}.card p{font:400 16px/1.4 var(--serif);color:var(--ink-2)}.card-date{display:block;margin-top:10px;font-size:11px}.card:hover h3{color:var(--red)}.cover{background:var(--c);display:flex;align-items:flex-end;padding:16px;color:var(--paper);font:500 44px/.95 var(--serif);font-style:italic;text-align:left;justify-content:flex-start;position:relative;isolation:isolate}.cover-title{position:absolute;left:16px;bottom:16px;z-index:1;color:var(--paper);font-style:italic;text-align:left;max-width:calc(100% - 32px)}.cover:after{content:"";position:absolute;inset:auto -20% -60% auto;width:90%;aspect-ratio:1;border-radius:50%;border:1px solid #ffffff40;z-index:0;pointer-events:none}
+.essay-hero{height:560px;overflow:hidden}.essay-head{max-width:880px;margin:56px auto 0;padding:0 24px;text-align:center}.essay-head h1{font:500 76px/1 var(--serif);letter-spacing:-.015em;margin:22px 0 20px}.essay-head .deck{font-size:24px;max-width:640px;margin:0 auto 28px}.byline{display:flex;justify-content:center;gap:22px;padding:14px 0;border-block:1px solid var(--rule);max-width:640px;margin:0 auto}.body{max-width:640px;margin:44px auto 0;padding:0 24px;font:400 21px/1.6 var(--serif)}.body p{margin:0 0 1.1em}.body p.first:first-letter{float:left;font:500 5.1em/.8 var(--serif);color:var(--red);padding:.06em .08em 0 0}.body h2{font:500 12px/1 var(--sans);font-stretch:125%;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin:2.2em 0 1em}.scripture{border-left:2px solid var(--red);padding:2px 0 2px 22px;margin:1.6em 0;font-size:19px;line-height:1.55}.scripture sup{color:var(--red);font:700 11px var(--sans);margin-right:4px}.scripture .ref{display:block;margin-top:8px;font:500 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}.pull{margin:1.8em -80px;padding:26px 0;border-block:1px solid var(--ink);font:italic 400 34px/1.2 var(--serif);text-align:center}.pull:before{content:"";display:block;width:28px;height:2px;background:var(--red);margin:0 auto 18px}.end{display:inline-block;width:10px;height:10px;background:var(--red);margin-left:8px;vertical-align:baseline}.gives{max-width:640px;margin:40px auto 0;padding:22px 24px;border-block:1px solid var(--ink);display:flex;flex-direction:column;gap:12px}.gives a{font:500 26px/1.2 var(--serif);color:var(--ink)}.gives a:hover{color:var(--red)}.essay-nav{max-width:640px;margin:30px auto 96px;padding:0 24px;display:flex;justify-content:space-between;align-items:center}.essay-nav a{font:500 11px/1 var(--sans);font-stretch:125%;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}.essay-nav a:hover{color:var(--red)}.listing{padding:48px}.listing h1{font:500 52px/1.05 var(--serif);margin:16px 0 10px}.listing .grid{padding:24px 0}.about{max-width:700px;margin:64px auto 96px;padding:0 24px;font-size:21px;line-height:1.6}.about h1{font-size:56px;line-height:1.05;margin:14px 0 24px}
+.promise{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;max-width:640px;margin:0 auto;padding:16px 0;border-bottom:1px solid var(--ink);color:var(--red);text-align:left}.promise-text{display:flex;flex-direction:column;gap:6px}.promise .kicker{color:var(--ink-2);font-size:10px}.promise-label{font:500 21px/1.2 var(--serif);color:var(--ink)}.promise:hover .promise-label{color:var(--red)}.gives-label{margin:0;font:500 32px/1.15 var(--serif)}.gives-action{display:inline-flex;align-self:flex-start;align-items:center;gap:10px;min-height:48px;padding:0 20px;background:var(--ink);color:var(--paper)!important;font:500 13px/1 var(--sans)!important;font-stretch:125%!important;letter-spacing:.1em;text-transform:uppercase}.gives-action:hover{background:var(--red)}.gives-meta{margin-left:6px;padding-left:12px;border-left:1px solid #fdfcf959;font-stretch:100%;text-transform:none;letter-spacing:0;opacity:.8}.card-gift{display:flex;align-items:center;gap:8px;margin-top:10px;font:500 15px/1.3 var(--serif);color:var(--ink)}.card-gift .icon{color:var(--red)}.card-gift .meta{margin-left:6px;font-size:12px}.hero .card-gift{margin-top:16px;font-size:18px}a.card-gift:hover{color:var(--red)}:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+@media(max-width:800px){.mast{padding:18px 24px;align-items:flex-start;gap:20px}.mast nav{gap:14px;flex-wrap:wrap;justify-content:flex-end}.mast nav a{font-size:10px}.hero{grid-template-columns:1fr;gap:22px;padding:24px}.hero h1,.hero h2{font-size:44px}.grid{grid-template-columns:repeat(2,1fr);gap:24px;padding:20px 24px 48px}.sec{margin-inline:24px}.essay-hero{height:42vw;min-height:220px}.essay-head{margin-top:36px}.essay-head h1{font-size:56px}.pull{margin-inline:0}.listing{padding:36px 24px}footer{padding:20px 24px}}
+@media(max-width:480px){.mast{display:block;padding:18px 20px}.mast .name{font-size:19px}.mast nav{justify-content:space-between;gap:10px;margin-top:18px}.mast nav a{font-size:9px;letter-spacing:.08em}.hero{padding:24px 20px}.hero h1,.hero h2{font-size:38px;margin:13px 0}.deck{font-size:19px}.sec{margin:8px 20px 0}.grid{grid-template-columns:1fr 1fr;gap:18px;padding:20px 20px 48px}.card h3{font-size:19px}.card p{font-size:14px}.cover{font-size:30px;padding:11px}.essay-head{margin-top:30px;padding-inline:20px}.essay-head h1{font-size:42px;line-height:1.03}.essay-head .deck{font-size:20px}.byline{gap:10px;flex-wrap:wrap;font-size:11px}.body{font-size:18px;line-height:1.65;margin-top:32px;padding-inline:24px}.scripture{font-size:17px;padding-left:16px}.pull{font-size:27px}.listing{padding:32px 20px}.listing h1{font-size:42px}.about{font-size:19px;margin-top:40px}footer{padding:18px 20px;font-size:10px}}
+@media(max-width:640px){.recent-grid{grid-template-columns:1fr}footer{flex-direction:column;align-items:flex-start;gap:8px}}
+</style>

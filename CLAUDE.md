@@ -9,7 +9,7 @@ This is a personal website built with Quartz v4, a static site generator that pu
 ## Direction (Keith, 2026-11-21; gift UI 2026-11-24)
 
 Astro editorial site replacing Quartz. Look: `design/comp.html` (Aeon structure; the vault's Rubric materials:
-Alegreya, one red `#b8321e`, one pigment per category, typographic pigment covers when a note has no banner).
+Alegreya, one red `#b8321e`, one pigment per category, typographic pigment covers when a note has no banner, no labels shown).
 2026-11-24: Keith tried a hymnal-contents restructure and kept the original look; only the gift UI stays (promise
 under the byline, Take-this panel with a Download button and file type/size, gift line on cards). The reader's
 goal is the gift. The production build fails while no essay is live. Content: only vault notes marked for publishing.
@@ -18,22 +18,23 @@ Everything below the go-live sections describes the old Quartz site.
 ## Addresses (Keith, 2026-11-22)
 
 Writing lives at the root: `keithdperez.com/<slug>`, one plain word, two at most, set as `slug:` in
-the note. A live slug never changes; old Quartz addresses forward. Shelves are `/<category>/`. Files people
+the note. A live slug never changes; old Quartz addresses forward. Everything is listed at `/writing/`; old shelf addresses forward there. Files people
 take go under `/downloads/<name>` once the first one exists. The build fails on a bad or reserved slug.
 `INCLUDE_UNREVIEWED=1` previews unapproved notes locally; CI never sets it.
 
-## Every essay gives something (Keith, 2026-11-22)
+## What a piece is (Keith, 2026-11-24)
 
-The most important rule: a piece must hand the reader something to use. `gives:` names it and
-`gives_link:` points to a URL or a vault file (served at `/downloads/<name>`). The build fails on a reviewed
-essay without one. Voice and why: vault `agent/docs/writing-voice.md`.
+The site is Keith's own blog: who he is and what is in his heart, plus a deliverable when there is one.
+Projects, ministry ops and tutorials stay off it. A gift is optional (`gives:` + `gives_link:`, a URL or a
+vault file served at `/downloads/<name>`); when present it leads, like the Ableton blog, and sometimes the
+writing is plenty. The site shows no category labels; `categories:` only marks a note as blog material.
+Shares use the banner or `public/og.png`. Voice: vault `agent/docs/writing-voice.md`.
 
 ## Go-live gate (Keith, 2026-11-22)
 
 An essay goes live only after Keith has read it and called it his: `publish: true` plus
 `reviewed: true` (enforced in `src/lib/content.js`). AI-sounding pieces come back to his voice first by
-talking them through, one at a time (vault `agent/docs/writing-voice.md`). The vault's writing gets its own
-shelf before launch. The deploy workflow is staged on `astro`; pushing and re-enabling Pages need his go-ahead.
+talking them through, one at a time (vault `agent/docs/writing-voice.md`). The deploy workflow is staged on `astro`; pushing and re-enabling Pages need his go-ahead.
 
 ## Build Commands
 

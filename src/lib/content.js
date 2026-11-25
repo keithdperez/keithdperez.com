@@ -45,14 +45,14 @@ function formatDate(value) {
   if (Number.isNaN(date.getTime())) return String(value);
   return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Chicago' }).format(date);
 }
-// Every piece gives the reader something, or it doesn't go live (Keith, 2026-11-22).
+// A gift is optional; when a piece has one, it leads (Keith, 2026-11-24: sometimes the writing is plenty).
 // `gives:` names it; `gives_link:` is a URL or a vault file, served at /downloads/<name>.
 function resolveGives(post) {
   const label = post.data.gives ? String(post.data.gives).trim() : '';
   const raw = post.data.gives_link ? String(post.data.gives_link).trim().replace(/^!?\[\[|\]\]$/g, '').split('|')[0] : '';
   const where = path.relative(root, post.file);
   if (!label || !raw) {
-    if (post.data.reviewed === true) throw new Error(`${where} is reviewed but gives nothing: set gives: and gives_link: before it can go live`);
+    if (label && !raw && post.data.reviewed === true) throw new Error(`${where}: gives: is set but gives_link: is missing`);
     return null;
   }
   if (/^https?:\/\//.test(raw)) { const s = sourceKind(raw); return { label, href: raw, file: null, kind: s.kind === 'Song' ? 'song' : 'link', meta: s.kind === 'Song' ? `Listen · ${s.host}` : s.host, action: s.kind === 'Song' ? 'Listen' : 'Open' }; }
@@ -109,6 +109,7 @@ export function getPosts() {
     }
   }
   return published.map((post) => {
+    // The category marks a note as blog material; the site shows no labels (Keith, 2026-11-24).
     const category = categoryFor(post.data);
     const bannerRef = post.data.banner && String(post.data.banner).replace(/^!?\[\[|\]\]$/g, '');
     const bannerCandidates = bannerRef ? [path.resolve(path.dirname(post.file), bannerRef), path.resolve(root, bannerRef), path.resolve(root, 'attachments', path.basename(bannerRef))] : [];
@@ -157,10 +158,8 @@ function render(source, index, currentFile, contentRoot) {
   const sources = [];
   const md = new Marked({ renderer: { link({ href, title, tokens }) {
     const label = this.parser.parseInline(tokens);
-    if (!/^https?:\/\//.test(href)) return `<a href="${href}"${title ? ` title="${title}"` : ''}>${label}</a>`;
-    const { kind, host } = sourceKind(href);
-    const n = sources.push({ n: sources.length + 1, href, label: label.replace(/<[^>]+>/g, ''), kind, host });
-    return `<a class="src" href="${href}">${label}</a><sup class="n" aria-hidden="true">${n}</sup><span class="side" aria-hidden="true"><b>${n}</b><span class="kind">${kind}</span><a href="${href}" tabindex="-1">${label.replace(/<[^>]+>/g, '')}</a></span>`;
+    if (/^https?:\/\//.test(href)) { const { kind, host } = sourceKind(href); sources.push({ n: sources.length + 1, href, label: label.replace(/<[^>]+>/g, ''), kind, host }); }
+    return `<a href="${href}"${title ? ` title="${title}"` : ''}>${label}</a>`;
   } } });
   let html = md.parse(text);
   const firstParagraph = html.indexOf('<p>');

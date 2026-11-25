@@ -1,49 +1,30 @@
 ---
-// Root addresses: /<essay>, /<shelf>, and old Quartz addresses that forward.
+// Root addresses: /<piece>, /writing/ (everything), and old shelf and Quartz addresses that forward.
 import Base from '../layouts/Base.astro';
-import Contents from '../components/Contents.astro';
 import Icon from '../components/Icon.astro';
-import { getPosts, getAbout, categoriesInUse } from '../lib/content.js';
+import { getPosts, getAbout } from '../lib/content.js';
 export function getStaticPaths() {
   const posts = getPosts();
-  const routes = posts.map((post, i) => ({ params: { slug: post.slug }, props: { kind: 'essay', post, newer: posts[i - 1] || null, older: posts[i + 1] || null } }));
-  for (const shelf of categoriesInUse()) routes.push({ params: { slug: shelf.name }, props: { kind: 'shelf', shelf, posts: posts.filter((p) => p.category.href === shelf.href) } });
+  const routes = posts.map((post) => ({ params: { slug: post.slug }, props: { kind: 'essay', post } }));
+  routes.push({ params: { slug: 'writing' }, props: { kind: 'shelf', shelf: { label: 'Writing' }, posts } });
   const taken = new Set(routes.map((r) => r.params.slug));
   const forward = (from, to) => { if (from && !from.includes('/') && !taken.has(from)) { taken.add(from); routes.push({ params: { slug: from }, props: { kind: 'redirect', to } }); } };
   for (const post of posts) forward(post.legacy, `/${post.slug}/`);
+  for (const old of ['reflections', 'studies', 'music']) forward(old, '/writing/');
   const about = getAbout(); if (about && about.legacy !== 'about') forward(about.legacy, '/about/');
   return routes;
 }
-const { kind, post, shelf, posts, to, newer, older } = Astro.props;
-const g = post?.gives;
+const { kind, post, shelf, posts, to } = Astro.props;
 ---
 {kind === 'redirect' && <html lang="en"><head><meta charset="utf-8" /><title>Moved</title><link rel="canonical" href={new URL(to, Astro.site)} /><meta name="robots" content="noindex" /><meta http-equiv="refresh" content={`0; url=${to}`} /></head><body><a href={to}>This page moved.</a></body></html>}
 {kind === 'essay' && <Base title={post.title} description={post.deck} type="article" image={post.banner}>
-  {post.banner && <div class="essay-hero"><img src={post.banner} alt="" /></div>}
-  <article class="essay">
-    <header class="essay-head">
-      <h1>{post.title}</h1>
-      <p class="deck">{post.deck}</p>
-      <p class="essay-meta"><span class="no">No. {post.number}</span><a class="shelf" href={post.category.href} style={`--c:${post.category.color}`}>{post.category.label}</a>{post.formattedDate && <time datetime={String(post.date)}>{post.formattedDate}</time>}</p>
-      {g && <a class="promise" href={g.href} download={g.file ? g.name : undefined}><Icon name={g.kind} size={18} /><span class="promise-text"><span class="promise-lead">This one gives you</span><span class="promise-label">{g.label}</span></span><span class="promise-meta">{g.meta}</span></a>}
-    </header>
-    <div class="body" set:html={post.html} />
-    {g && <section class="take" id="take" aria-labelledby="take-h">
-      <h2 id="take-h" class="label">Take this</h2>
-      <p class="take-label">{g.label}</p>
-      <a class="take-action" href={g.href} download={g.file ? g.name : undefined}><Icon name={g.kind} />{g.action}<span class="take-meta">{g.meta}</span></a>
-    </section>}
-    {post.sources.length > 0 && <section class="sources" aria-labelledby="src-h">
-      <h2 id="src-h" class="label">Sources</h2>
-      <ol role="list">{post.sources.map((s) => <li><span class="n">{s.n}</span><span class="kind">{s.kind}</span><a href={s.href}>{s.label}</a><span class="host">{s.host}</span></li>)}</ol>
-    </section>}
-    <nav class="turn" aria-label="More writing">
-      {newer ? <a class="turn-newer" href={`/${newer.slug}/`}><span class="label"><Icon name="back" size={14} />Newer</span><span class="turn-title">{newer.title}</span></a> : <span />}
-      {older ? <a class="turn-older" href={`/${older.slug}/`}><span class="label">Older<Icon name="arrow" size={14} /></span><span class="turn-title">{older.title}</span></a> : <a class="turn-older" href="/"><span class="label">Contents<Icon name="arrow" size={14} /></span><span class="turn-title">Everything so far</span></a>}
-    </nav>
-  </article>
+{post.banner && <div class="essay-hero"><img src={post.banner} alt="" /></div>}
+<div class="essay-head"><h1>{post.title}</h1><p class="deck">{post.deck}</p><div class="byline meta"><span>By <b>Keith D. Perez</b></span><span>{post.words.toLocaleString()} words</span>{post.formattedDate && <span>{post.formattedDate}</span>}</div>{post.gives && <a class="promise" href={post.gives.href} download={post.gives.file ? post.gives.name : undefined}><Icon name={post.gives.kind} size={18} /><span class="promise-text"><span class="kicker">This one gives you</span><span class="promise-label">{post.gives.label}</span></span><span class="meta">{post.gives.meta}</span></a>}</div>
+<article class="body" set:html={post.html} />
+{post.gives && <aside class="gives" id="take"><span class="kicker"><i></i>Take this</span><p class="gives-label">{post.gives.label}</p><a class="gives-action" href={post.gives.href} download={post.gives.file ? post.gives.name : undefined}><Icon name={post.gives.kind} />{post.gives.action}<span class="gives-meta">{post.gives.meta}</span></a></aside>}
+<nav class="essay-nav"><a href="/writing/">More writing →</a><a href="/">Home</a></nav>
 </Base>}
 {kind === 'shelf' && <Base title={shelf.label}>
-  <section class="intro shelf-intro"><h1>{shelf.label}</h1><p class="intro-links">{`${posts.length} ${posts.length === 1 ? 'piece' : 'pieces'}`}</p></section>
-  <section class="toc" aria-labelledby="toc-h"><h2 id="toc-h" class="sr-only">{shelf.label} contents</h2><Contents posts={posts} showShelf={false} /></section>
+<section class="listing"><h1>{shelf.label}</h1><p class="meta">{posts.length} {posts.length === 1 ? 'piece' : 'pieces'}</p>
+<div class="grid">{posts.map((p) => <a class="card" href={`/${p.slug}/`}>{p.banner ? <div class="img"><img src={p.banner} alt="" /></div> : <div class="cover" style={`--c:${p.category.color}`}><span class="cover-title">{p.title}</span></div>}<h3>{p.title}</h3><p>{p.deck}</p>{p.gives && <span class="card-gift"><Icon name={p.gives.kind} size={14} />{p.gives.label}</span>}{p.formattedDate && <span class="meta card-date">{p.formattedDate}</span>}</a>)}</div></section>
 </Base>}
