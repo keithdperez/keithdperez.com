@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import { getPosts, getAbout } from '../lib/content.js';
 export function getStaticPaths() {
   const posts = getPosts();
-  // After the last line: the next piece, shown as its cover, so finishing one leads to another without a label.
+  // After the last line: the next piece, shown as a row, so finishing one leads to another without a label.
   const routes = posts.map((post, i) => ({ params: { slug: post.slug }, props: { kind: 'essay', post, next: posts.length > 1 ? posts[(i + 1) % posts.length] : null } }));
   routes.push({ params: { slug: 'writing' }, props: { kind: 'shelf', shelf: { label: 'Writing' }, posts } });
   const taken = new Set(routes.map((r) => r.params.slug));
@@ -23,9 +23,9 @@ const { kind, post, shelf, posts, to, next } = Astro.props;
 <div class="essay-head"><h1>{post.title}</h1><p class="deck">{post.deck}</p>{post.formattedDate && <div class="byline meta"><time>{post.formattedDate}</time></div>}{post.gives && <a class="promise" href={post.gives.href} download={post.gives.file ? post.gives.name : undefined}><Icon name={post.gives.kind} size={18} /><span class="promise-text"><span class="promise-label">{post.gives.label}</span></span><span class="meta">{post.gives.meta}</span></a>}</div>
 <article class="body" set:html={post.html} />
 {post.gives && <a class={`take take-${post.gives.kind}`} id="take" href={post.gives.href} download={post.gives.file ? post.gives.name : undefined} aria-label={`${post.gives.action}: ${post.gives.label} (${post.gives.meta})`}><span class="take-mark"><Icon name={post.gives.kind} size={24} /></span><span class="take-text"><span class="take-label">{post.gives.label}</span><span class="meta">{post.gives.meta}</span></span></a>}
-{next && <a class="next" href={`/${next.slug}/`}>{next.banner ? <span class="next-cover"><img src={next.banner} alt="" /></span> : <span class="next-cover cover" style={`--c:${next.category.color}`}></span>}<span class="next-title">{next.title}</span><Icon name="arrow" size={18} /></a>}
+{next && <a class="next" href={`/${next.slug}/`}><span class="next-title">{next.title}</span><Icon name="arrow" size={18} /></a>}
 </Base>}
 {kind === 'shelf' && <Base title={shelf.label}>
 <section class="listing"><h1>{shelf.label}</h1>
-<div class="grid">{posts.map((p) => <a class="card" href={`/${p.slug}/`}>{p.banner ? <div class="img"><img src={p.banner} alt="" /></div> : <div class="cover" style={`--c:${p.category.color}`}><span class="cover-title">{p.title}</span></div>}<h3>{p.title}</h3><p>{p.deck}</p>{p.gives && <span class="card-gift"><Icon name={p.gives.kind} size={14} /><span class="lbl">{p.gives.label}</span></span>}{p.formattedDate && <span class="meta card-date">{p.formattedDate}</span>}</a>)}</div></section>
+<div class="grid">{posts.map((p) => <a class="card" href={`/${p.slug}/`} style={`--c:${p.category.color}`}>{p.banner ? <div class="img"><img src={p.banner} alt="" /></div> : null}<i class="dot"></i><h3>{p.title}</h3><p>{p.deck}</p>{p.gives && <span class="card-gift"><Icon name={p.gives.kind} size={16} /><span class="lbl">{p.gives.label}</span></span>}</a>)}</div></section>
 </Base>}
