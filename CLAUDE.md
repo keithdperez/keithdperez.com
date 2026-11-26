@@ -13,7 +13,8 @@ Alegreya, one red `#b8321e`, one pigment per category, typographic pigment cover
 2026-11-24: Keith tried a hymnal-contents restructure and kept the original look; only the gift UI stays (promise
 under the byline, the gift handed over at the end with its file type/size, gift line on cards). The reader's
 goal is the gift. Shapes over text (Keith, 2026-11-26): no labels, kickers or instructions; the design carries the
-meaning (the end gift is a filled red tile, the next piece is its cover). Dark follows the system with the vault's
+meaning (the gift is a filled red tile, the next piece is an arrow row). No pigment covers; lists are rows
+with a pigment square. The mark is Keith's face in a circle, not a wordmark. Desktop is one centered column. Dark follows the system with the vault's
 Rubric dark palette. The production build fails while no essay is live. Content: only vault notes marked for publishing.
 Everything below the go-live sections describes the old Quartz site.
 
