@@ -25,6 +25,6 @@ const { kind, post, shelf, posts, to } = Astro.props;
 <nav class="essay-nav"><a href="/writing/">More writing →</a><a href="/">Home</a></nav>
 </Base>}
 {kind === 'shelf' && <Base title={shelf.label}>
-<section class="listing"><h1>{shelf.label}</h1><p class="meta">{posts.length} {posts.length === 1 ? 'piece' : 'pieces'}</p>
+<section class="listing"><h1>{shelf.label}</h1><p class="meta">{`${posts.length} ${posts.length === 1 ? 'piece' : 'pieces'}`}</p>
 <div class="grid">{posts.map((p) => <a class="card" href={`/${p.slug}/`}>{p.banner ? <div class="img"><img src={p.banner} alt="" /></div> : <div class="cover" style={`--c:${p.category.color}`}><span class="cover-title">{p.title}</span></div>}<h3>{p.title}</h3><p>{p.deck}</p>{p.gives && <span class="card-gift"><Icon name={p.gives.kind} size={14} />{p.gives.label}</span>}{p.formattedDate && <span class="meta card-date">{p.formattedDate}</span>}</a>)}</div></section>
 </Base>}

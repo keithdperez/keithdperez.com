@@ -5,7 +5,7 @@ import { Marked } from 'marked';
 
 const root = path.resolve(process.env.CONTENT_DIR || path.join(process.env.HOME || '', 'vault'));
 const ignoredDirs = new Set(['.obsidian', '.claude', '.copilot', '.trash', '.git', '.agents', 'agent', 'attachments', 'references', 'daily', 'conversations', 'archive', 'templates', 'projects', 'resources', 'production', 'church', 'guides', 'bible', 'journal', 'private']);
-const categories = { reflections: ['Reflection', '#7a2f66'], studies: ['Study', '#2c4f9e'], writing: ['Writing', '#2d7766'], music: ['Music', '#b58515'] };
+const categories = { reflections: ['Reflection', 'var(--murex)'], studies: ['Study', 'var(--lapis)'], writing: ['Writing', 'var(--verdigris)'], music: ['Music', 'var(--orpiment)'] };
 const list = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
   const full = path.join(dir, entry.name);
   if (entry.isDirectory() && (entry.name.startsWith('.') || ignoredDirs.has(entry.name.toLowerCase()))) return [];
