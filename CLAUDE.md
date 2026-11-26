@@ -28,7 +28,7 @@ The site is Keith's own blog: who he is and what is in his heart, plus a deliver
 Projects, ministry ops and tutorials stay off it. A gift is optional (`gives:` + `gives_link:`, a URL or a
 vault file served at `/downloads/<name>`); when present it leads, like the Ableton blog, and sometimes the
 writing is plenty. The site shows no category labels; `categories:` only marks a note as blog material.
-Shares use the banner or `public/og.png`. Voice: vault `agent/docs/writing-voice.md`.
+Shares use the banner or `public/og.png`. Phone first (Keith, 2026-11-26): it must look beautiful on a phone above all; check every change at 390px in WebKit, dark and light. Voice: vault `agent/docs/writing-voice.md`.
 
 ## Go-live gate (Keith, 2026-11-22)
 
