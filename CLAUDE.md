@@ -11,8 +11,10 @@ This is a personal website built with Quartz v4, a static site generator that pu
 Astro editorial site replacing Quartz. Look: `design/comp.html` (Aeon structure; the vault's Rubric materials:
 Alegreya, one red `#b8321e`, one pigment per category, typographic pigment covers when a note has no banner, no labels shown).
 2026-11-24: Keith tried a hymnal-contents restructure and kept the original look; only the gift UI stays (promise
-under the byline, Take-this panel with a Download button and file type/size, gift line on cards). The reader's
-goal is the gift. The production build fails while no essay is live. Content: only vault notes marked for publishing.
+under the byline, the gift handed over at the end with its file type/size, gift line on cards). The reader's
+goal is the gift. Shapes over text (Keith, 2026-11-26): no labels, kickers or instructions; the design carries the
+meaning (the end gift is a filled red tile, the next piece is its cover). Dark follows the system with the vault's
+Rubric dark palette. The production build fails while no essay is live. Content: only vault notes marked for publishing.
 Everything below the go-live sections describes the old Quartz site.
 
 ## Addresses (Keith, 2026-11-22)

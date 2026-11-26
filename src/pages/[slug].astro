@@ -5,7 +5,8 @@ import Icon from '../components/Icon.astro';
 import { getPosts, getAbout } from '../lib/content.js';
 export function getStaticPaths() {
   const posts = getPosts();
-  const routes = posts.map((post) => ({ params: { slug: post.slug }, props: { kind: 'essay', post } }));
+  // After the last line: the next piece, shown as its cover, so finishing one leads to another without a label.
+  const routes = posts.map((post, i) => ({ params: { slug: post.slug }, props: { kind: 'essay', post, next: posts.length > 1 ? posts[(i + 1) % posts.length] : null } }));
   routes.push({ params: { slug: 'writing' }, props: { kind: 'shelf', shelf: { label: 'Writing' }, posts } });
   const taken = new Set(routes.map((r) => r.params.slug));
   const forward = (from, to) => { if (from && !from.includes('/') && !taken.has(from)) { taken.add(from); routes.push({ params: { slug: from }, props: { kind: 'redirect', to } }); } };
@@ -14,17 +15,17 @@ export function getStaticPaths() {
   const about = getAbout(); if (about && about.legacy !== 'about') forward(about.legacy, '/about/');
   return routes;
 }
-const { kind, post, shelf, posts, to } = Astro.props;
+const { kind, post, shelf, posts, to, next } = Astro.props;
 ---
 {kind === 'redirect' && <html lang="en"><head><meta charset="utf-8" /><title>Moved</title><link rel="canonical" href={new URL(to, Astro.site)} /><meta name="robots" content="noindex" /><meta http-equiv="refresh" content={`0; url=${to}`} /></head><body><a href={to}>This page moved.</a></body></html>}
 {kind === 'essay' && <Base title={post.title} description={post.deck} type="article" image={post.banner}>
 {post.banner && <div class="essay-hero"><img src={post.banner} alt="" /></div>}
-<div class="essay-head"><h1>{post.title}</h1><p class="deck">{post.deck}</p><div class="byline meta"><span>By <b>Keith D. Perez</b></span><span>{post.words.toLocaleString()} words</span>{post.formattedDate && <span>{post.formattedDate}</span>}</div>{post.gives && <a class="promise" href={post.gives.href} download={post.gives.file ? post.gives.name : undefined}><Icon name={post.gives.kind} size={18} /><span class="promise-text"><span class="kicker">This one gives you</span><span class="promise-label">{post.gives.label}</span></span><span class="meta">{post.gives.meta}</span></a>}</div>
+<div class="essay-head"><h1>{post.title}</h1><p class="deck">{post.deck}</p>{post.formattedDate && <div class="byline meta"><time>{post.formattedDate}</time></div>}{post.gives && <a class="promise" href={post.gives.href} download={post.gives.file ? post.gives.name : undefined}><Icon name={post.gives.kind} size={18} /><span class="promise-text"><span class="promise-label">{post.gives.label}</span></span><span class="meta">{post.gives.meta}</span></a>}</div>
 <article class="body" set:html={post.html} />
-{post.gives && <aside class="gives" id="take"><span class="kicker"><i></i>Take this</span><p class="gives-label">{post.gives.label}</p><a class="gives-action" href={post.gives.href} download={post.gives.file ? post.gives.name : undefined}><Icon name={post.gives.kind} />{post.gives.action}<span class="gives-meta">{post.gives.meta}</span></a></aside>}
-<nav class="essay-nav"><a href="/writing/">More writing →</a><a href="/">Home</a></nav>
+{post.gives && <a class={`take take-${post.gives.kind}`} id="take" href={post.gives.href} download={post.gives.file ? post.gives.name : undefined} aria-label={`${post.gives.action}: ${post.gives.label} (${post.gives.meta})`}><span class="take-mark"><Icon name={post.gives.kind} size={24} /></span><span class="take-text"><span class="take-label">{post.gives.label}</span><span class="meta">{post.gives.meta}</span></span></a>}
+{next && <a class="next" href={`/${next.slug}/`}>{next.banner ? <span class="next-cover"><img src={next.banner} alt="" /></span> : <span class="next-cover cover" style={`--c:${next.category.color}`}></span>}<span class="next-title">{next.title}</span><Icon name="arrow" size={18} /></a>}
 </Base>}
 {kind === 'shelf' && <Base title={shelf.label}>
-<section class="listing"><h1>{shelf.label}</h1><p class="meta">{`${posts.length} ${posts.length === 1 ? 'piece' : 'pieces'}`}</p>
+<section class="listing"><h1>{shelf.label}</h1>
 <div class="grid">{posts.map((p) => <a class="card" href={`/${p.slug}/`}>{p.banner ? <div class="img"><img src={p.banner} alt="" /></div> : <div class="cover" style={`--c:${p.category.color}`}><span class="cover-title">{p.title}</span></div>}<h3>{p.title}</h3><p>{p.deck}</p>{p.gives && <span class="card-gift"><Icon name={p.gives.kind} size={14} />{p.gives.label}</span>}{p.formattedDate && <span class="meta card-date">{p.formattedDate}</span>}</a>)}</div></section>
 </Base>}
